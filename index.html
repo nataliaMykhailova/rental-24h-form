@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+<div class="search-container">
+    <h2>Let's find your ideal car</h2>
+    <div class="short-info">
+        <p>Driver's country of residence is <a href="#">Ukraine</a> and age is <a href="#">30-65</a></p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M11 17H13V11H11V17ZM12 9C12.2833 9 12.5208 8.90417 12.7125 8.7125C12.9042 8.52083 13 8.28333 13 8C13 7.71667 12.9042 7.47917 12.7125 7.2875C12.5208 7.09583 12.2833 7 12 7C11.7167 7 11.4792 7.09583 11.2875 7.2875C11.0958 7.47917 11 7.71667 11 8C11 8.28333 11.0958 8.52083 11.2875 8.7125C11.4792 8.90417 11.7167 9 12 9ZM12 22C10.6167 22 9.31667 21.7375 8.1 21.2125C6.88333 20.6875 5.825 19.975 4.925 19.075C4.025 18.175 3.3125 17.1167 2.7875 15.9C2.2625 14.6833 2 13.3833 2 12C2 10.6167 2.2625 9.31667 2.7875 8.1C3.3125 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.3125 8.1 2.7875C9.31667 2.2625 10.6167 2 12 2C13.3833 2 14.6833 2.2625 15.9 2.7875C17.1167 3.3125 18.175 4.025 19.075 4.925C19.975 5.825 20.6875 6.88333 21.2125 8.1C21.7375 9.31667 22 10.6167 22 12C22 13.3833 21.7375 14.6833 21.2125 15.9C20.6875 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6875 15.9 21.2125C14.6833 21.7375 13.3833 22 12 22ZM12 20C14.2333 20 16.125 19.225 17.675 17.675C19.225 16.125 20 14.2333 20 12C20 9.76667 19.225 7.875 17.675 6.325C16.125 4.775 14.2333 4 12 4C9.76667 4 7.875 4.775 6.325 6.325C4.775 7.875 4 9.76667 4 12C4 14.2333 4.775 16.125 6.325 17.675C7.875 19.225 9.76667 20 12 20Z"
+                  fill="black"/>
+        </svg>
+    </div>
+    <form id="myForm">
+        <div class="form-group input-wrapper" tabindex="0">
+            <label for="location">Pick-up location</label>
+            <svg class="default-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                 fill="none">
+                <path d="M12 11.5C11.337 11.5 10.7011 11.2366 10.2322 10.7678C9.76339 10.2989 9.5 9.66304 9.5 9C9.5 8.33696 9.76339 7.70107 10.2322 7.23223C10.7011 6.76339 11.337 6.5 12 6.5C12.663 6.5 13.2989 6.76339 13.7678 7.23223C14.2366 7.70107 14.5 8.33696 14.5 9C14.5 9.3283 14.4353 9.65339 14.3097 9.95671C14.1841 10.26 13.9999 10.5356 13.7678 10.7678C13.5356 10.9999 13.26 11.1841 12.9567 11.3097C12.6534 11.4353 12.3283 11.5 12 11.5ZM12 2C10.1435 2 8.36301 2.7375 7.05025 4.05025C5.7375 5.36301 5 7.14348 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 7.14348 18.2625 5.36301 16.9497 4.05025C15.637 2.7375 13.8565 2 12 2Z"
+                      fill="black"/>
+            </svg>
+            <svg class="error-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                 fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM11 17V15H13V17H11ZM11 7V13H13V7H11Z"
+                      fill="#D4281E"/>
+            </svg>
+            <input type="text" id="location" name="location" placeholder="Placeholder txt" required>
+        </div>
+        <div class="return-location">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z" fill="#8A9197"/>
+            </svg>
+            <p>Different return location</p>
+        </div>
+<!--        <div class="form-group">-->
+<!--            <input type="checkbox" id="different-location" name="different-location">-->
+<!--            <label for="different-location">Different return location</label>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="pick-up-date">Pick-up date</label>-->
+<!--            <input type="text" id="pick-up-date" name="pick-up-date" placeholder="Jul 28 08:00 PM" required>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="drop-off-date">Drop-off date</label>-->
+<!--            <input type="text" id="drop-off-date" name="drop-off-date" placeholder="Jul 28 08:00 PM" required>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="promo-code-toggle">-->
+<!--                <span>Have a promo code?</span>-->
+<!--                <label class="switch">-->
+<!--                    <input type="checkbox" id="promo-code-toggle">-->
+<!--                    <span class="slider"></span>-->
+<!--                </label>-->
+<!--            </label>-->
+<!--        </div>-->
+<!--        <div class="form-group promo-code">-->
+<!--            <input type="text" id="promo-code" name="promo-code" placeholder="Enter Promo Code">-->
+<!--        </div>-->
+        <div class="form-group">
+            <button type="submit" class="submit-btn">Search</button>
+        </div>
+    </form>
+</div>
+<script src="main.js"></script>
+</body>
+</html>
