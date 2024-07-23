@@ -79,7 +79,7 @@ body {
     visibility: hidden;
 }
 
-.input-wrapper.error {
+.input-wrapper.error input{
     border-radius: 8px;
     border: 1px solid #D4281E;
     background: #FFF;
@@ -146,6 +146,13 @@ body {
 .return-location:active{
     border-radius: 8px;
     border: 2px solid #4A44F2;
+}
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
 }
 
 .form-group select,
