@@ -204,19 +204,19 @@ body {
 .input-wrapper.error .error-icon {
     display: inline;
 }
-
+#returnLocationWrapper:hover svg path,
 .data-picker-day:hover svg path,
 .input-wrapper:hover svg path,
 .input-wrapper:active svg path {
     fill: #4A44F2;
 }
-
+#returnLocationWrapper.error:hover svg path,
 .input-wrapper.error:hover svg path,
 .input-wrapper.error:active svg path,
 .input-wrapper.error.focused svg path {
     fill: #D4281E; /* Перекриття стилю для іконки помилки */
 }
-
+.input-wrapper.error:hover #drop-of-icon path,
 .input-wrapper.focused #loc-icon path,
 .input-wrapper.error:hover #loc-icon path {
     fill: #4A44F2; /* Застосування кольору для loc-icon */
