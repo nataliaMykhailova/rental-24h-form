@@ -67,6 +67,31 @@ document.querySelectorAll('.input-wrapper').forEach(function(element) {
 
 
 
+
+
+document.querySelectorAll('.input-wrapper input').forEach(input => {
+    input.addEventListener('input', function() {
+        // Додаємо або видаляємо клас 'filled' в залежності від значення інпуту
+        if (this.value.trim() !== '') {
+            this.classList.add('filled');
+        } else {
+            this.classList.remove('filled');
+        }
+    });
+});
+
+// Додаємо подію кліку на всі іконки очищення тексту
+document.querySelectorAll('.clear-icon').forEach(icon => {
+    icon.addEventListener('click', function() {
+        // Очищаємо значення відповідного інпуту
+        const input = this.previousElementSibling;
+        input.value = '';
+        input.classList.remove('filled');
+    });
+});
+
+
+
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById('myForm');
     const locationInput = document.getElementById('location');
@@ -192,7 +217,6 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('pickup-time-input').value = document.getElementById('pickup-hour-display').innerText;
         document.getElementById('dropoff-time-input').value = document.getElementById('dropoff-hour-display').innerText;
 
-
         const inputs = form.querySelectorAll("input[type='text'], input[type='hidden']");
         let formIsValid = true;
         let formData = {};
@@ -202,20 +226,36 @@ document.addEventListener("DOMContentLoaded", function() {
             if (inputWrapper) {
                 const errorIcon = inputWrapper.querySelector('.error-icon');
 
-                if (input.value.trim() === '' || !locationPlace.includes(input.value.trim())) {
-                    inputWrapper.classList.add('error');
-                    input.classList.add('error');
+                // Check if location input is empty
+                if (input.name === 'location' && input.value.trim() === '') { // НОВИЙ КОД
+                    inputWrapper.classList.add('error'); // НОВИЙ КОД
+                    input.classList.add('error'); // НОВИЙ КОД
+                    input.classList.remove('filled');
 
-                    if (errorIcon) {
-                        errorIcon.style.display = 'inline';
+                    if (errorIcon) { // НОВИЙ КОД
+                        errorIcon.style.display = 'inline'; // НОВИЙ КОД
                     }
 
-                    formIsValid = false;
+                    formIsValid = false; // НОВИЙ КОД
+                } else if (input.name === 'returnLocation' && input.value.trim() === '') { // НОВИЙ КОД
+                    inputWrapper.classList.add('error'); // НОВИЙ КОД
+                    input.classList.add('error'); // НОВИЙ КОД
+                    const locationInput = form.querySelector("input[name='location']"); // НОВИЙ КОД
+                    if (locationInput && locationInput.value.trim() !== '') { // НОВИЙ КОД
+                        input.value = locationInput.value.trim(); // НОВИЙ КОД
+                        formData[input.name] = input.value; // НОВИЙ КОД
+                        inputWrapper.classList.remove('error'); // НОВИЙ КОД
+                        input.classList.remove('error'); // НОВИЙ КОД
+                        if (errorIcon) { // НОВИЙ КОД
+                            errorIcon.style.display = 'none'; // НОВИЙ КОД
+                        } // НОВИЙ КОД
+                    } // НОВИЙ КОД
                 } else {
                     if (input.name !== 'search-country') {
                         formData[input.name] = input.value;
                     }
                     inputWrapper.classList.remove('error');
+                    input.classList.remove('filled')
                     input.classList.remove('error');
                     if (errorIcon) {
                         errorIcon.style.display = 'none';
@@ -244,6 +284,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 .catch((error) => {
                     console.error('Error:', error);
                 });
+
             form.reset();
         }
     };
@@ -257,6 +298,18 @@ document.addEventListener("DOMContentLoaded", function() {
         returnLocationWrapper.classList.remove('hidden');
     });
 })
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -648,26 +701,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-document.querySelectorAll('.input-wrapper input').forEach(input => {
-    input.addEventListener('input', function() {
-        // Додаємо або видаляємо клас 'filled' в залежності від значення інпуту
-        if (this.value.trim() !== '') {
-            this.classList.add('filled');
-        } else {
-            this.classList.remove('filled');
-        }
-    });
-});
 
-// Додаємо подію кліку на всі іконки очищення тексту
-document.querySelectorAll('.clear-icon').forEach(icon => {
-    icon.addEventListener('click', function() {
-        // Очищаємо значення відповідного інпуту
-        const input = this.previousElementSibling;
-        input.value = '';
-        input.classList.remove('filled');
-    });
-});
 
 
 
