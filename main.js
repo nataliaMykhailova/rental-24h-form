@@ -8,11 +8,15 @@ document.getElementById('promo-code-toggle').addEventListener('change', function
 });
 document.getElementById('sb-country').addEventListener('click', function () {
     const dropdown = this.nextElementSibling;
+    dropdown.style.top = this.offsetTop + this.offsetHeight + 'px';
+    dropdown.style.left = this.offsetLeft + 'px';
     dropdown.classList.toggle('open');
 });
 
 document.getElementById('sb-age').addEventListener('click', function () {
     const dropdown = this.nextElementSibling;
+    dropdown.style.top = this.offsetTop + this.offsetHeight + 'px';
+    dropdown.style.left = this.offsetLeft + 'px';
     dropdown.classList.toggle('open');
 });
 
@@ -53,7 +57,7 @@ document.addEventListener('click', function (e) {
 
 document.querySelectorAll('.input-wrapper').forEach(function(element) {
     element.addEventListener('focusin', function() {
-            this.classList.add('focused');
+        this.classList.add('focused');
     });
     element.addEventListener('focusout', function() {
         this.classList.remove('focused');
@@ -62,29 +66,66 @@ document.querySelectorAll('.input-wrapper').forEach(function(element) {
 
 
 
+
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById('myForm');
     const locationInput = document.getElementById('location');
     const returnLocationInput = document.getElementById('returnLocation');
 
-    function autocomplete(inp, arr) {
+    function createCustomButton(label, iconPosition, iconType) {
+        const buttonDiv = document.createElement('div');
+        let svgIcon;
+
+        if (iconType === 'rent') {
+            svgIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M19.6 21L13.3 14.7C12.8 15.1 12.225 15.4167 11.575 15.65C10.925 15.8833 10.2333 16 9.5 16C7.68333 16 6.14583 15.3708 4.8875 14.1125C3.62917 12.8542 3 11.3167 3 9.5C3 7.68333 3.62917 6.14583 4.8875 4.8875C6.14583 3.62917 7.68333 3 9.5 3C11.3167 3 12.8542 3.62917 14.1125 4.8875C15.3708 6.14583 16 7.68333 16 9.5C16 10.2333 15.8833 10.925 15.65 11.575C15.4167 12.225 15.1 12.8 14.7 13.3L21 19.6L19.6 21ZM9.5 14C10.75 14 11.8125 13.5625 12.6875 12.6875C13.5625 11.8125 14 10.75 14 9.5C14 8.25 13.5625 7.1875 12.6875 6.3125C11.8125 5.4375 10.75 5 9.5 5C8.25 5 7.1875 5.4375 6.3125 6.3125C5.4375 7.1875 5 8.25 5 9.5C5 10.75 5.4375 11.8125 6.3125 12.6875C7.1875 13.5625 8.25 14 9.5 14Z" fill="black"/></svg>`;
+        } else {
+            svgIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M14.1 4C15.7167 4 17.1042 4.525 18.2625 5.575C19.4208 6.625 20 7.93333 20 9.5C20 11.0667 19.4208 12.375 18.2625 13.425C17.1042 14.475 15.7167 15 14.1 15H7.8L10.4 17.6L9 19L4 14L9 9L10.4 10.4L7.8 13H14.1C15.15 13 16.0625 12.6667 16.8375 12C17.6125 11.3333 18 10.5 18 9.5C18 8.5 17.6125 7.66667 16.8375 7C16.0625 6.33333 15.15 6 14.1 6H7V4H14.1Z" fill="black"/></svg>`;
+        }
+
+        buttonDiv.innerHTML = iconPosition === 'left' ? `${svgIcon} ${label}` : `${label} ${svgIcon}`;
+        buttonDiv.querySelector('svg').style.margin = iconPosition === 'left' ? '0 10px 0 0' : '0 0 0 10px';
+        buttonDiv.style.display = 'flex';
+        buttonDiv.style.alignItems = 'center';
+        return buttonDiv;
+    }
+
+    function autocomplete(inp, arr, isPickup) {
         let currentFocus;
-        inp.addEventListener('input', function(e) {
+        inp.addEventListener('input', function (e) {
             let a, b, i, val = this.value;
             closeAllLists();
-            if (!val) { return false;}
+            if (!val) {
+                return false;
+            }
             currentFocus = -1;
             a = document.createElement('DIV');
-            a.setAttribute('id', this.id + 'autocomplete-list');
+            a.setAttribute('id', this.id + '-autocomplete-list');
             a.setAttribute('class', 'autocomplete-items');
             this.parentNode.appendChild(a);
+
+            if (isPickup) {
+                const rentNearMeDiv = createCustomButton('Rent car near me', 'left', 'rent' );
+                rentNearMeDiv.addEventListener('click', function (e) {
+                    inp.value = 'Rent car near me';
+                    closeAllLists();
+                });
+                a.appendChild(rentNearMeDiv);
+            } else {
+                const returnAtPickupDiv = createCustomButton('Return at Pick-up', 'left', 'return');
+                returnAtPickupDiv.addEventListener('click', function (e) {
+                    inp.value = locationInput.value;
+                    closeAllLists();
+                });
+                a.appendChild(returnAtPickupDiv);
+            }
+
             for (i = 0; i < arr.length; i++) {
                 if (arr[i].substr(0, val.length).toUpperCase() === val.toUpperCase()) {
                     b = document.createElement('DIV');
                     b.innerHTML = '<strong>' + arr[i].substr(0, val.length) + '</strong>';
                     b.innerHTML += arr[i].substr(val.length);
                     b.innerHTML += '<input type="hidden" value="' + arr[i] + '">';
-                    b.addEventListener('click', function(e) {
+                    b.addEventListener('click', function (e) {
                         inp.value = this.getElementsByTagName('input')[0].value;
                         closeAllLists();
                     });
@@ -93,8 +134,8 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
 
-        inp.addEventListener('keydown', function(e) {
-            let x = document.getElementById(this.id + 'autocomplete-list');
+        inp.addEventListener('keydown', function (e) {
+            let x = document.getElementById(this.id + '-autocomplete-list');
             if (x) x = x.getElementsByTagName('div');
             if (e.keyCode === 40) {
                 currentFocus++;
@@ -138,13 +179,20 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    autocomplete(locationInput, locationPlace);
-    autocomplete(returnLocationInput, locationPlace);
+    autocomplete(locationInput, locationPlace, true);
+    autocomplete(returnLocationInput, locationPlace, false);
 
     form.onsubmit = function (event) {
-        event.preventDefault(); // Запобігає відправці форми
+        event.preventDefault();
 
-        // Збираємо дані з форми
+        document.getElementById('hidden-country').value = document.getElementById('sb-country').innerText;
+        document.getElementById('hidden-age').value = document.getElementById('sb-age').innerText;
+        document.getElementById('pickup-date-input').value = document.getElementById('pickup-date-display').innerText;
+        document.getElementById('dropoff-date-input').value = document.getElementById('dropoff-date-display').innerText;
+        document.getElementById('pickup-time-input').value = document.getElementById('pickup-hour-display').innerText;
+        document.getElementById('dropoff-time-input').value = document.getElementById('dropoff-hour-display').innerText;
+
+
         const inputs = form.querySelectorAll("input[type='text'], input[type='hidden']");
         let formIsValid = true;
         let formData = {};
@@ -164,7 +212,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
                     formIsValid = false;
                 } else {
-                    formData[input.name] = input.value;
+                    if (input.name !== 'search-country') {
+                        formData[input.name] = input.value;
+                    }
                     inputWrapper.classList.remove('error');
                     input.classList.remove('error');
                     if (errorIcon) {
@@ -172,24 +222,13 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                 }
             } else {
-                formData[input.name] = input.value;
+                if (input.name !== 'search-country') {
+                    formData[input.name] = input.value;
+                }
             }
         });
 
         if (formIsValid) {
-            // Видаляємо класи помилки після вдалого сабміту
-            inputs.forEach(input => {
-                const inputWrapper = input.closest('.input-wrapper');
-                if (inputWrapper) {
-                    inputWrapper.classList.remove('error');
-                    input.classList.remove('error');
-                    const errorIcon = inputWrapper.querySelector('.error-icon');
-                    if (errorIcon) {
-                        errorIcon.style.display = 'none';
-                    }
-                }
-            });
-
             fetch(form.action, {
                 method: 'POST',
                 headers: {
@@ -200,27 +239,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 .then(response => response.json())
                 .then(data => {
                     console.log('Success:', data);
-                    // Очищення форми після успішної відправки
                     form.reset();
                 })
                 .catch((error) => {
                     console.error('Error:', error);
                 });
-            // Очищення форми після відправки
             form.reset();
         }
     };
-
-
-
-
-
-
-
-
-
-
-
 
 
     const returnLocationButton = document.querySelector('.return-location');
@@ -233,21 +259,7 @@ document.addEventListener("DOMContentLoaded", function() {
 })
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const calendarBody1 = document.getElementById('calendar-body-1');
     const calendarBody2 = document.getElementById('calendar-body-2');
     const prevButton = document.getElementById('prev-button');
@@ -256,7 +268,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const monthYear2 = document.getElementById('month-year-2');
     const pickupPicker = document.getElementById('pickup-picker');
     const dropoffPicker = document.getElementById('dropoff-picker');
-    const calendarContainer = document.querySelector('.calendar-container');
+    const pickupHourContainer = document.getElementById('pickup-hour-container');
+    const dropoffHourContainer = document.getElementById('dropoff-hour-container');
 
     const today = new Date();
     let currentMonth = today.getMonth();
@@ -429,11 +442,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function hideCalendar(event) {
         const calendar = document.querySelector('.calendar-container');
-        if (calendar.style.display === 'block' && !calendar.contains(event.target) && !event.target.closest('.calendar-container') && !event.target.closest('#prev-button') && !event.target.closest('#next-button')) {
+        if (calendar.style.display === 'block' && !calendar.contains(event.target) &&
+            !event.target.closest('#pickup-picker') &&
+            !event.target.closest('#dropoff-picker') &&
+            !event.target.closest('#prev-button') &&
+            !event.target.closest('#next-button') &&
+            !event.target.closest('#pickup-hour-container') &&
+            !event.target.closest('#dropoff-hour-container')) {
             calendar.style.display = 'none';
         }
     }
-
     pickupPicker.addEventListener('click', showCalendar);
     dropoffPicker.addEventListener('click', showCalendar);
 
@@ -485,13 +503,13 @@ function toggleSelectVisibility(containerId, selectId) {
     const select = document.getElementById(selectId);
 
     container.addEventListener('click', function (event) {
-        event.stopPropagation(); // Prevent click from closing the dropdown
+        event.stopPropagation();
         select.classList.toggle('hidden');
         select.style.position = 'absolute';
-        select.style.top = container.offsetHeight + 'px'; // Position below the container
-        select.style.left = '0'; // Align to the left of the container
-        select.style.width = container.offsetWidth + 'px'; // Match container width
-        select.focus(); // Focus on the select to show options
+        select.style.top = container.offsetHeight + 'px';
+        select.style.left = '0';
+        select.style.width = container.offsetWidth + 'px';
+        select.focus();
     });
 
     select.addEventListener('change', function () {
@@ -546,7 +564,7 @@ function hidePicker(event) {
 }
 document.querySelectorAll('.data-picker-hour select').forEach(function(select) {
     select.addEventListener('click', function(event) {
-        event.stopPropagation();
+        // event.stopPropagation();
     });
     select.addEventListener('blur', function() {
         this.classList.add('hidden');
@@ -627,6 +645,32 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 });
+
+
+
+document.querySelectorAll('.input-wrapper input').forEach(input => {
+    input.addEventListener('input', function() {
+        // Додаємо або видаляємо клас 'filled' в залежності від значення інпуту
+        if (this.value.trim() !== '') {
+            this.classList.add('filled');
+        } else {
+            this.classList.remove('filled');
+        }
+    });
+});
+
+// Додаємо подію кліку на всі іконки очищення тексту
+document.querySelectorAll('.clear-icon').forEach(icon => {
+    icon.addEventListener('click', function() {
+        // Очищаємо значення відповідного інпуту
+        const input = this.previousElementSibling;
+        input.value = '';
+        input.classList.remove('filled');
+    });
+});
+
+
+
 
 
 
