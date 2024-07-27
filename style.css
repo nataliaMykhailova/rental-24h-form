@@ -214,12 +214,13 @@ body {
 .input-wrapper.error:hover svg path,
 .input-wrapper.error:active svg path,
 .input-wrapper.error.focused svg path {
-    fill: #D4281E; /* Перекриття стилю для іконки помилки */
+    fill: #D4281E;
 }
 .input-wrapper.error:hover #drop-of-icon path,
+.input-wrapper.error.focused #drop-of-icon path,
 .input-wrapper.focused #loc-icon path,
 .input-wrapper.error:hover #loc-icon path {
-    fill: #4A44F2; /* Застосування кольору для loc-icon */
+    fill: #4A44F2;
 }
 .clear-icon {
     position: absolute;
