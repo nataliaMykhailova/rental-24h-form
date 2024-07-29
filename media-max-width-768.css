@@ -1,11 +1,13 @@
-@media (max-width: 768px){
-    body{
-        margin:0;
+@media (max-width: 768px) {
+    body {
+        margin: 0;
     }
+
     #myForm {
         display: flex;
         flex-direction: column;
     }
+
     .search-container {
         width: 92vw;
         margin: auto;
@@ -23,14 +25,34 @@
         display: none;
     }
 
+
     form {
         width: 100%;
     }
 
     .input-wrapper {
+        position: relative;
         margin-top: 20px;
         width: 100%;
         order: 1;
+    }
+
+    .default-icon {
+        bottom: 10px;
+    }
+
+    .clear-icon {
+        bottom: 16px;
+    }
+
+    .error-icon {
+        bottom: 20px;
+    }
+
+    .remove-icon {
+        position: absolute;
+        top: 0;
+        right: 0;
     }
 
     .input-wrapper input {
@@ -38,7 +60,7 @@
         height: 48px;
     }
 
-    .submit-btn button{
+    .submit-btn button {
         width: 100%;
     }
 
@@ -63,6 +85,7 @@
 
     .search-container.expanded {
         width: 100vw;
+        border-radius: 0;
     }
 
     .search-container.expanded h2 {
@@ -75,15 +98,16 @@
     }
 
 
-    .data-picker-container.expanded
-     {
+    .data-picker-container.expanded {
         display: block;
 
     }
-    .return-location.expanded, .check-box.expanded{
+
+    .return-location.expanded, .check-box.expanded {
         display: flex;
     }
-    .return-location{
+
+    .return-location {
         max-width: 100%;
         order: 2;
     }
@@ -102,10 +126,12 @@
     .check-box {
         order: 5;
     }
-    .promo-code{
+
+    .promo-code {
         order: 6;
     }
-    #promo-code{
+
+    #promo-code {
         width: 100%;
         height: 48px;
         margin-top: 0;
@@ -114,12 +140,15 @@
     .submit-btn {
         order: 7;
     }
+
     .hidden.expanded {
         display: none;
     }
+
     #drop-off-label {
-     display: none;
+        display: none;
     }
+
     .data-picker-day,
     .data-picker-hour {
         display: flex;
@@ -132,33 +161,47 @@
         gap: 10px;
 
     }
-    .svg-clock{
+
+    .data-picker {
+        justify-content: space-around;
+    }
+
+    .svg-clock {
         display: block;
     }
+
     .residence-dropdown {
         left: 0 !important;
         width: 100%;
     }
+
     .promo-code.active {
         display: block;
     }
-    .switch{
+
+    .switch {
         margin: 0;
     }
-    .slider-text{
+
+    .slider-text {
         margin-top: 10px;
     }
+
     .calendar-body-container {
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
     }
+
     .calendar-container {
         width: 100vw;
         height: auto;
-        margin: 0;
         left: 0 !important;
+        box-shadow: none;
+        border-radius: 0;
+        border: 0;
     }
-    .calendar-header{
+
+    .calendar-header {
         flex-direction: column;
         position: relative;
     }
@@ -166,6 +209,15 @@
     #next-button {
         position: absolute;
         right: 0;
+    }
+
+    .autocomplete-items {
+        width: auto;
+    }
+    #original-picker-section {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
     }
 
 }

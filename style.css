@@ -117,8 +117,7 @@ body {
     visibility: visible;
     opacity: 1;
 }
-
-.data-picker-container {
+#original-picker-section {
     display: flex;
     justify-content: space-between;
 }
@@ -176,11 +175,27 @@ body {
 
 .default-icon {
     position: absolute;
-    top: 60%;
+    bottom: 15px;
     left: 10px;
     transform: translateY(-50%);
     fill: #000;
     transition: fill 0.3s;
+}
+
+.error-icon {
+    display: none;
+    position: absolute;
+    bottom: 25px;
+    right: 10px;
+    fill: #D4281E;
+}
+
+.clear-icon {
+    position: absolute;
+    right: 10px;
+    bottom: 20px;
+    cursor: pointer;
+    display: none;
 }
 
 .error input {
@@ -193,13 +208,7 @@ body {
     border: 1px solid #D4281E; /* Перекриваємо стилі фокусу і активного стану */
 }
 
-.error-icon {
-    display: none;
-    position: absolute;
-    top: 45%;
-    right: 10px;
-    fill: #D4281E;
-}
+
 
 .input-wrapper.error .error-icon {
     display: inline;
@@ -222,11 +231,8 @@ body {
 .input-wrapper.error:hover #loc-icon path {
     fill: #4A44F2;
 }
-.clear-icon {
-    position: absolute;
-    right: 8px;
-    top: 40px;
-    cursor: pointer;
+
+.remove-icon{
     display: none;
 }
 

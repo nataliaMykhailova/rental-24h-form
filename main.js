@@ -96,6 +96,15 @@ document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById('myForm');
     const locationInput = document.getElementById('location');
     const returnLocationInput = document.getElementById('returnLocation');
+    const locationPlace =[
+        'Miami - Airport, MIA, Florida, USA',
+        'Kobe - Airport, UKB, Japan',
+        'Reynosa - Airport, REX, Mexico',
+        'Poznan - Airport - Lawica, POZ, Poland',
+        'Trondheim - Airport, TRD, Norway',
+        'Phoenix - Airport, PHX, Arizona, USA',
+        'Portland - International Airport, PDX, Oregon, USA'
+    ]
 
     function createCustomButton(label, iconPosition, iconType) {
         const buttonDiv = document.createElement('div');
@@ -207,6 +216,27 @@ document.addEventListener("DOMContentLoaded", function() {
     autocomplete(locationInput, locationPlace, true);
     autocomplete(returnLocationInput, locationPlace, false);
 
+    function validateInput(input, arr) { // НОВИЙ КОД
+        const inputWrapper = input.closest('.input-wrapper');
+        const errorIcon = inputWrapper ? inputWrapper.querySelector('.error-icon') : null;
+        if (!arr.includes(input.value)) {
+            inputWrapper.classList.add('error');
+            input.classList.add('error');
+            if (errorIcon) {
+                errorIcon.style.display = 'inline';
+            }
+            return false;
+        } else {
+            inputWrapper.classList.remove('error');
+            input.classList.remove('error');
+            if (errorIcon) {
+                errorIcon.style.display = 'none';
+            }
+            return true;
+        }
+    }
+
+
     form.onsubmit = function (event) {
         event.preventDefault();
 
@@ -221,35 +251,52 @@ document.addEventListener("DOMContentLoaded", function() {
         let formIsValid = true;
         let formData = {};
 
+
+
+
         inputs.forEach(input => {
             const inputWrapper = input.closest('.input-wrapper');
             if (inputWrapper) {
                 const errorIcon = inputWrapper.querySelector('.error-icon');
 
-                // Check if location input is empty
-                if (input.name === 'location' && input.value.trim() === '') { // НОВИЙ КОД
-                    inputWrapper.classList.add('error'); // НОВИЙ КОД
-                    input.classList.add('error'); // НОВИЙ КОД
-                    input.classList.remove('filled');
 
-                    if (errorIcon) { // НОВИЙ КОД
-                        errorIcon.style.display = 'inline'; // НОВИЙ КОД
+                // при фокусі, видаляє іконку error
+                input.addEventListener('focus', () => {
+                    if (errorIcon) {
+                        errorIcon.style.display = 'none';
                     }
+                });
 
-                    formIsValid = false; // НОВИЙ КОД
-                } else if (input.name === 'returnLocation' && input.value.trim() === '') { // НОВИЙ КОД
-                    inputWrapper.classList.add('error'); // НОВИЙ КОД
-                    input.classList.add('error'); // НОВИЙ КОД
-                    const locationInput = form.querySelector("input[name='location']"); // НОВИЙ КОД
-                    if (locationInput && locationInput.value.trim() !== '') { // НОВИЙ КОД
-                        input.value = locationInput.value.trim(); // НОВИЙ КОД
-                        formData[input.name] = input.value; // НОВИЙ КОД
-                        inputWrapper.classList.remove('error'); // НОВИЙ КОД
-                        input.classList.remove('error'); // НОВИЙ КОД
-                        if (errorIcon) { // НОВИЙ КОД
-                            errorIcon.style.display = 'none'; // НОВИЙ КОД
-                        } // НОВИЙ КОД
-                    } // НОВИЙ КОД
+                //добавляє класс error і припиняє submit при певних умовах
+                if (input.name === 'location' && !locationPlace.includes(input.value)) {
+                    inputWrapper.classList.add('error');
+                    input.classList.add('error');
+                    input.classList.remove('filled');
+                    if (errorIcon) {
+                        errorIcon.style.display = 'inline';
+                    }
+                    formIsValid = false;
+
+                } else if (input.name === 'returnLocation' && !locationPlace.includes(input.value) && !returnLocationWrapper.classList.contains('hidden')) {
+                    inputWrapper.classList.add('error');
+                    input.classList.add('error');
+                    input.classList.remove('filled');
+                    const locationInput = form.querySelector("input[name='location']");
+                    if (errorIcon) {
+                        errorIcon.style.display = 'inline';
+                    }
+                    formIsValid = false;
+                } else if (input.name === 'returnLocation' && returnLocationWrapper.classList.contains('hidden')) {
+                    const locationInput = form.querySelector("input[name='location']");
+                    if (locationInput && locationPlace.includes(locationInput.value.trim())) {
+                        input.value = locationInput.value.trim();
+                        formData[input.name] = input.value;
+                        inputWrapper.classList.remove('error');
+                        input.classList.remove('error');
+                        if (errorIcon) {
+                            errorIcon.style.display = 'none';
+                        }
+                    }
                 } else {
                     if (input.name !== 'search-country') {
                         formData[input.name] = input.value;
@@ -300,18 +347,6 @@ document.addEventListener("DOMContentLoaded", function() {
 })
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 document.addEventListener('DOMContentLoaded', function () {
     const calendarBody1 = document.getElementById('calendar-body-1');
     const calendarBody2 = document.getElementById('calendar-body-2');
@@ -321,15 +356,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const monthYear2 = document.getElementById('month-year-2');
     const pickupPicker = document.getElementById('pickup-picker');
     const dropoffPicker = document.getElementById('dropoff-picker');
-    const pickupHourContainer = document.getElementById('pickup-hour-container');
-    const dropoffHourContainer = document.getElementById('dropoff-hour-container');
+
+    const calendarContainer = document.querySelector('.calendar-container');
 
     const today = new Date();
     let currentMonth = today.getMonth();
     let currentYear = today.getFullYear();
 
-    let selectedPickupDate = today;
-    let selectedDropoffDate = today;
+    let selectedPickupDate = new Date(today);
+    let selectedDropoffDate = new Date(today);
 
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const weekDays = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
@@ -403,11 +438,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 cell.classList.add('today');
             }
 
-            if (selectedPickupDate && date.toDateString() === selectedPickupDate.toDateString() && selectedPickupDate !== today) {
+            if (selectedPickupDate && date.toDateString() === selectedPickupDate.toDateString()) {
                 cell.classList.add('selected-pickup');
             }
 
-            if (selectedDropoffDate && date.toDateString() === selectedDropoffDate.toDateString() && selectedDropoffDate !== today) {
+            if (selectedDropoffDate && date.toDateString() === selectedDropoffDate.toDateString()) {
                 cell.classList.add('selected-dropoff');
             }
 
@@ -453,10 +488,13 @@ document.addEventListener('DOMContentLoaded', function () {
             if (selectedDropoffDate && selectedDropoffDate < selectedPickupDate) {
                 selectedDropoffDate = null;
             }
+            currentPicker = 'dropoff';
         } else if (currentPicker === 'dropoff') {
             selectedDropoffDate = date;
+            currentPicker = 'pickup';
         }
         updateCalendar();
+        updateDateDisplays();
     }
 
     function updateDateDisplays() {
@@ -475,15 +513,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function showCalendar(event) {
         event.stopPropagation();
-        const calendar = document.querySelector('.calendar-container');
-        calendar.style.display = 'block';
+
+        calendarContainer.style.display = 'block';
 
         const rect = event.currentTarget.getBoundingClientRect();
-        const calendarRect = calendar.getBoundingClientRect();
 
-        calendar.style.position = 'absolute';
-        calendar.style.top = `${rect.bottom + window.scrollY}px`;
-        calendar.style.left = `${rect.left}px`;
+        calendarContainer.style.position = 'absolute';
+        calendarContainer.style.top = `${rect.bottom + window.scrollY}px`;
+        calendarContainer.style.left = `${rect.left}px`;
 
         if (event.currentTarget.id === 'pickup-picker') {
             currentPicker = 'pickup';
@@ -499,57 +536,67 @@ document.addEventListener('DOMContentLoaded', function () {
             !event.target.closest('#pickup-picker') &&
             !event.target.closest('#dropoff-picker') &&
             !event.target.closest('#prev-button') &&
-            !event.target.closest('#next-button') &&
-            !event.target.closest('#pickup-hour-container') &&
-            !event.target.closest('#dropoff-hour-container')) {
+            !event.target.closest('#next-button')) {
             calendar.style.display = 'none';
         }
     }
-    pickupPicker.addEventListener('click', showCalendar);
-    dropoffPicker.addEventListener('click', showCalendar);
 
-    document.addEventListener('click', hideCalendar);
-
-    prevButton.addEventListener('click', (event) => {
-        event.stopPropagation();
-        if (currentMonth === 0) {
+    function showPreviousMonth() {
+        currentMonth--;
+        if (currentMonth < 0) {
             currentMonth = 11;
             currentYear--;
-        } else {
-            currentMonth--;
         }
         updateCalendar();
-    });
+    }
 
-    nextButton.addEventListener('click', (event) => {
-        event.stopPropagation();
-        if (currentMonth === 11) {
+    function showNextMonth() {
+        currentMonth++;
+        if (currentMonth > 11) {
             currentMonth = 0;
             currentYear++;
-        } else {
-            currentMonth++;
         }
         updateCalendar();
-    });
+    }
 
+    // Initial setup
     updateCalendar();
+
+    pickupPicker.addEventListener('click', showCalendar);
+    dropoffPicker.addEventListener('click', showCalendar);
+    document.addEventListener('click', hideCalendar);
+    prevButton.addEventListener('click', showPreviousMonth); // Add event listener for previous month
+    nextButton.addEventListener('click', showNextMonth); // Add event listener for next month
 });
 
 
 
 
+document.addEventListener('DOMContentLoaded', () => {
+    const pickupPicker = document.getElementById('pickup-picker');
+    const dropoffPicker = document.getElementById('dropoff-picker');
+    const myForm = document.getElementById('myForm');
 
+    const handlePickersPositioning = () => {
+        // Отримати координати myForm
+        const formRect = myForm.getBoundingClientRect();
 
+        // Позиціонувати pickupPicker зліва
+        pickupPicker.style.top = `${formRect.top}px`;
+        pickupPicker.style.left = `${formRect.left}px`;
+        pickupPicker.style.right = 'auto';
+        pickupPicker.classList.add('active-picker', 'left-side');
 
+        // Позиціонувати dropoffPicker справа
+        dropoffPicker.style.top = `${formRect.top}px`;
+        dropoffPicker.style.right = `${window.innerWidth - formRect.right}px`;
+        dropoffPicker.style.left = 'auto';
+        dropoffPicker.classList.add('active-picker', 'right-side');
+    };
 
-
-
-
-
-
-
-
-
+    pickupPicker.addEventListener('click', handlePickersPositioning);
+    dropoffPicker.addEventListener('click', handlePickersPositioning);
+});
 
 function toggleSelectVisibility(containerId, selectId) {
     const container = document.getElementById(containerId);
@@ -708,12 +755,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-const locationPlace =[
-    'Miami - Airport, MIA, Florida, USA',
-    'Kobe - Airport, UKB, Japan',
-    'Reynosa - Airport, REX, Mexico',
-    'Poznan - Airport - Lawica, POZ, Poland',
-    'Trondheim - Airport, TRD, Norway',
-    'Phoenix - Airport, PHX, Arizona, USA',
-    'Portland - International Airport, PDX, Oregon, USA'
-]

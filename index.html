@@ -263,7 +263,7 @@
             </div>
             and age is <span id="sb-age" class="sb-relative appended">30-65</span>
             <div class="age-dropdown closed">
-                <ul class="age-select-list">
+                <ul class="age-select-list" id="age-selected">
                     <li data-value="18">18</li>
                     <li data-value="19">19</li>
                     <li data-value="20">20</li>
@@ -309,6 +309,9 @@
         <div class=" input-wrapper form-group" tabindex="0">
             <div>
                 <label for="location" id="pickupLabel">Pick-up location</label>
+                <svg id="remove-expanded-icon" class="remove-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path d="M13.3002 0.710224C13.2077 0.61752 13.0978 0.543973 12.9768 0.493791C12.8559 0.44361 12.7262 0.417779 12.5952 0.417779C12.4643 0.417779 12.3346 0.44361 12.2136 0.493791C12.0926 0.543973 11.9827 0.61752 11.8902 0.710224L7.00022 5.59022L2.11022 0.700223C2.01764 0.607642 1.90773 0.534202 1.78677 0.484097C1.6658 0.433992 1.53615 0.408203 1.40522 0.408203C1.27429 0.408203 1.14464 0.433992 1.02368 0.484097C0.902716 0.534202 0.792805 0.607642 0.700223 0.700223C0.607642 0.792805 0.534202 0.902716 0.484097 1.02368C0.433992 1.14464 0.408203 1.27429 0.408203 1.40522C0.408203 1.53615 0.433992 1.6658 0.484097 1.78677C0.534202 1.90773 0.607642 2.01764 0.700223 2.11022L5.59022 7.00022L0.700223 11.8902C0.607642 11.9828 0.534202 12.0927 0.484097 12.2137C0.433992 12.3346 0.408203 12.4643 0.408203 12.5952C0.408203 12.7262 0.433992 12.8558 0.484097 12.9768C0.534202 13.0977 0.607642 13.2076 0.700223 13.3002C0.792805 13.3928 0.902716 13.4662 1.02368 13.5163C1.14464 13.5665 1.27429 13.5922 1.40522 13.5922C1.53615 13.5922 1.6658 13.5665 1.78677 13.5163C1.90773 13.4662 2.01764 13.3928 2.11022 13.3002L7.00022 8.41022L11.8902 13.3002C11.9828 13.3928 12.0927 13.4662 12.2137 13.5163C12.3346 13.5665 12.4643 13.5922 12.5952 13.5922C12.7262 13.5922 12.8558 13.5665 12.9768 13.5163C13.0977 13.4662 13.2076 13.3928 13.3002 13.3002C13.3928 13.2076 13.4662 13.0977 13.5163 12.9768C13.5665 12.8558 13.5922 12.7262 13.5922 12.5952C13.5922 12.4643 13.5665 12.3346 13.5163 12.2137C13.4662 12.0927 13.3928 11.9828 13.3002 11.8902L8.41022 7.00022L13.3002 2.11022C13.6802 1.73022 13.6802 1.09022 13.3002 0.710224Z" fill="black"/>
+                </svg>
             </div>
             <div>
                 <svg id="loc-icon" class="default-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -367,146 +370,156 @@
         </div>
 
         <div class="data-picker-container">
-            <div>
-                <p>Pick-up date</p>
-                <div class="data-picker" id="pickup-picker-container">
-                    <div class="data-picker-day" id="pickup-picker" >
-                        <svg id="pickup-calendar-icon"xmlns="http://www.w3.org/2000/svg" width="18" height="20" viewBox="0 0 18 20" fill="none">
-                            <path d="M2 20C1.45 20 0.979167 19.8042 0.5875 19.4125C0.195833 19.0208 0 18.55 0 18V4C0 3.45 0.195833 2.97917 0.5875 2.5875C0.979167 2.19583 1.45 2 2 2H3V0H5V2H13V0H15V2H16C16.55 2 17.0208 2.19583 17.4125 2.5875C17.8042 2.97917 18 3.45 18 4V18C18 18.55 17.8042 19.0208 17.4125 19.4125C17.0208 19.8042 16.55 20 16 20H2ZM2 18H16V8H2V18ZM2 6H16V4H2V6Z"
-                                  fill="black"/>
-                        </svg>
-                        <span id="pickup-date-display"></span>
+            <div id="original-picker-section">
+                <div>
+                    <p>Pick-up date</p>
+                    <div class="data-picker" id="pickup-picker-container">
+                        <div class="data-picker-day" id="pickup-picker">
+                            <svg id="pickup-calendar-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="20"
+                                 viewBox="0 0 18 20" fill="none">
+                                <path d="M2 20C1.45 20 0.979167 19.8042 0.5875 19.4125C0.195833 19.0208 0 18.55 0 18V4C0 3.45 0.195833 2.97917 0.5875 2.5875C0.979167 2.19583 1.45 2 2 2H3V0H5V2H13V0H15V2H16C16.55 2 17.0208 2.19583 17.4125 2.5875C17.8042 2.97917 18 3.45 18 4V18C18 18.55 17.8042 19.0208 17.4125 19.4125C17.0208 19.8042 16.55 20 16 20H2ZM2 18H16V8H2V18ZM2 6H16V4H2V6Z"
+                                      fill="black"/>
+                            </svg>
+                            <span id="pickup-date-display"></span>
+                        </div>
+                        <div class="data-picker-hour" id="pickup-hour-container">
+                            <svg class="svg-clock" xmlns="http://www.w3.org/2000/svg" width="25" height="24"
+                                 viewBox="0 0 25 24" fill="none">
+                                <path d="M15.8 16.7L17.2 15.3L13.5 11.6V7H11.5V12.4L15.8 16.7ZM12.5 22C11.1167 22 9.81667 21.7375 8.6 21.2125C7.38333 20.6875 6.325 19.975 5.425 19.075C4.525 18.175 3.8125 17.1167 3.2875 15.9C2.7625 14.6833 2.5 13.3833 2.5 12C2.5 10.6167 2.7625 9.31667 3.2875 8.1C3.8125 6.88333 4.525 5.825 5.425 4.925C6.325 4.025 7.38333 3.3125 8.6 2.7875C9.81667 2.2625 11.1167 2 12.5 2C13.8833 2 15.1833 2.2625 16.4 2.7875C17.6167 3.3125 18.675 4.025 19.575 4.925C20.475 5.825 21.1875 6.88333 21.7125 8.1C22.2375 9.31667 22.5 10.6167 22.5 12C22.5 13.3833 22.2375 14.6833 21.7125 15.9C21.1875 17.1167 20.475 18.175 19.575 19.075C18.675 19.975 17.6167 20.6875 16.4 21.2125C15.1833 21.7375 13.8833 22 12.5 22ZM12.5 20C14.7167 20 16.6042 19.2208 18.1625 17.6625C19.7208 16.1042 20.5 14.2167 20.5 12C20.5 9.78333 19.7208 7.89583 18.1625 6.3375C16.6042 4.77917 14.7167 4 12.5 4C10.2833 4 8.39583 4.77917 6.8375 6.3375C5.27917 7.89583 4.5 9.78333 4.5 12C4.5 14.2167 5.27917 16.1042 6.8375 17.6625C8.39583 19.2208 10.2833 20 12.5 20Z"
+                                      fill="black"/>
+                            </svg>
+                            <span id="pickup-hour-display">10:00</span><span>PM</span>
+                            <select name="sb-time-from" id="pickup-time-select" class="time-select hidden"
+                                    autocomplete="off" size="5">
+                                <option value="00:30">00:30</option>
+                                <option value="01:00">01:00</option>
+                                <option value="01:30">01:30</option>
+                                <option value="02:00">02:00</option>
+                                <option value="02:30">02:30</option>
+                                <option value="03:00">03:00</option>
+                                <option value="03:30">03:30</option>
+                                <option value="04:00">04:00</option>
+                                <option value="04:30">04:30</option>
+                                <option value="05:00">05:00</option>
+                                <option value="05:30">05:30</option>
+                                <option value="06:00">06:00</option>
+                                <option value="06:30">06:30</option>
+                                <option value="07:00">07:00</option>
+                                <option value="07:30">07:30</option>
+                                <option value="08:00">08:00</option>
+                                <option value="08:30">08:30</option>
+                                <option value="09:00">09:00</option>
+                                <option value="09:30">09:30</option>
+                                <option value="10:00" selected="">10:00</option>
+                                <option value="10:30">10:30</option>
+                                <option value="11:00">11:00</option>
+                                <option value="11:30">11:30</option>
+                                <option value="12:00">12:00</option>
+                                <option value="12:30">12:30</option>
+                                <option value="13:00">13:00</option>
+                                <option value="13:30">13:30</option>
+                                <option value="14:00">14:00</option>
+                                <option value="14:30">14:30</option>
+                                <option value="15:00">15:00</option>
+                                <option value="15:30">15:30</option>
+                                <option value="16:00">16:00</option>
+                                <option value="16:30">16:30</option>
+                                <option value="17:00">17:00</option>
+                                <option value="17:30">17:30</option>
+                                <option value="18:00">18:00</option>
+                                <option value="18:30">18:30</option>
+                                <option value="19:00">19:00</option>
+                                <option value="19:30">19:30</option>
+                                <option value="20:00">20:00</option>
+                                <option value="20:30">20:30</option>
+                                <option value="21:00">21:00</option>
+                                <option value="21:30">21:30</option>
+                                <option value="22:00">22:00</option>
+                                <option value="22:30">22:30</option>
+                                <option value="23:00">23:00</option>
+                                <option value="23:30">23:30</option>
+                                <option value="00:00">00:00</option>
+                            </select>
+                        </div>
+                        <input type="hidden" id="pickup-date-input" name="pickup-date">
+                        <input type="hidden" id="pickup-time-input" name="pickup-time">                             <!--можлива проблема закриття календаря при нажатті на блок-->
                     </div>
-                    <div class="data-picker-hour" id="pickup-hour-container">
-                        <svg class="svg-clock" xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
-                            <path d="M15.8 16.7L17.2 15.3L13.5 11.6V7H11.5V12.4L15.8 16.7ZM12.5 22C11.1167 22 9.81667 21.7375 8.6 21.2125C7.38333 20.6875 6.325 19.975 5.425 19.075C4.525 18.175 3.8125 17.1167 3.2875 15.9C2.7625 14.6833 2.5 13.3833 2.5 12C2.5 10.6167 2.7625 9.31667 3.2875 8.1C3.8125 6.88333 4.525 5.825 5.425 4.925C6.325 4.025 7.38333 3.3125 8.6 2.7875C9.81667 2.2625 11.1167 2 12.5 2C13.8833 2 15.1833 2.2625 16.4 2.7875C17.6167 3.3125 18.675 4.025 19.575 4.925C20.475 5.825 21.1875 6.88333 21.7125 8.1C22.2375 9.31667 22.5 10.6167 22.5 12C22.5 13.3833 22.2375 14.6833 21.7125 15.9C21.1875 17.1167 20.475 18.175 19.575 19.075C18.675 19.975 17.6167 20.6875 16.4 21.2125C15.1833 21.7375 13.8833 22 12.5 22ZM12.5 20C14.7167 20 16.6042 19.2208 18.1625 17.6625C19.7208 16.1042 20.5 14.2167 20.5 12C20.5 9.78333 19.7208 7.89583 18.1625 6.3375C16.6042 4.77917 14.7167 4 12.5 4C10.2833 4 8.39583 4.77917 6.8375 6.3375C5.27917 7.89583 4.5 9.78333 4.5 12C4.5 14.2167 5.27917 16.1042 6.8375 17.6625C8.39583 19.2208 10.2833 20 12.5 20Z" fill="black"/>
-                        </svg>
-                        <span id="pickup-hour-display">10:00</span><span>PM</span>
-                        <select name="sb-time-from" id="pickup-time-select" class="time-select hidden" autocomplete="off" size="5">
-                            <option value="00:30">00:30</option>
-                            <option value="01:00">01:00</option>
-                            <option value="01:30">01:30</option>
-                            <option value="02:00">02:00</option>
-                            <option value="02:30">02:30</option>
-                            <option value="03:00">03:00</option>
-                            <option value="03:30">03:30</option>
-                            <option value="04:00">04:00</option>
-                            <option value="04:30">04:30</option>
-                            <option value="05:00">05:00</option>
-                            <option value="05:30">05:30</option>
-                            <option value="06:00">06:00</option>
-                            <option value="06:30">06:30</option>
-                            <option value="07:00">07:00</option>
-                            <option value="07:30">07:30</option>
-                            <option value="08:00">08:00</option>
-                            <option value="08:30">08:30</option>
-                            <option value="09:00">09:00</option>
-                            <option value="09:30">09:30</option>
-                            <option value="10:00" selected="">10:00</option>
-                            <option value="10:30">10:30</option>
-                            <option value="11:00">11:00</option>
-                            <option value="11:30">11:30</option>
-                            <option value="12:00">12:00</option>
-                            <option value="12:30">12:30</option>
-                            <option value="13:00">13:00</option>
-                            <option value="13:30">13:30</option>
-                            <option value="14:00">14:00</option>
-                            <option value="14:30">14:30</option>
-                            <option value="15:00">15:00</option>
-                            <option value="15:30">15:30</option>
-                            <option value="16:00">16:00</option>
-                            <option value="16:30">16:30</option>
-                            <option value="17:00">17:00</option>
-                            <option value="17:30">17:30</option>
-                            <option value="18:00">18:00</option>
-                            <option value="18:30">18:30</option>
-                            <option value="19:00">19:00</option>
-                            <option value="19:30">19:30</option>
-                            <option value="20:00">20:00</option>
-                            <option value="20:30">20:30</option>
-                            <option value="21:00">21:00</option>
-                            <option value="21:30">21:30</option>
-                            <option value="22:00">22:00</option>
-                            <option value="22:30">22:30</option>
-                            <option value="23:00">23:00</option>
-                            <option value="23:30">23:30</option>
-                            <option value="00:00">00:00</option>
-                        </select>
-                    </div>
-                    <input type="hidden" id="pickup-date-input" name="pickup-date">
-                    <input type="hidden" id="pickup-time-input" name="pickup-time">
                 </div>
-            </div>
 
-            <div>
-                <p>Drop-off date</p>
-                <div class="data-picker" id="dropoff-picker-container">
-                    <div class="data-picker-day" id="dropoff-picker">
-                        <svg id="dropoff-calendar-icon"xmlns="http://www.w3.org/2000/svg" width="18" height="20" viewBox="0 0 18 20" fill="none">
-                            <path d="M2 20C1.45 20 0.979167 19.8042 0.5875 19.4125C0.195833 19.0208 0 18.55 0 18V4C0 3.45 0.195833 2.97917 0.5875 2.5875C0.979167 2.19583 1.45 2 2 2H3V0H5V2H13V0H15V2H16C16.55 2 17.0208 2.19583 17.4125 2.5875C17.8042 2.97917 18 3.45 18 4V18C18 18.55 17.8042 19.0208 17.4125 19.4125C17.0208 19.8042 16.55 20 16 20H2ZM2 18H16V8H2V18ZM2 6H16V4H2V6Z"
-                                  fill="black"/>
-                        </svg>
-                        <span id="dropoff-date-display"></span>
-                    </div>
-                    <div class="data-picker-hour" id="dropoff-hour-container">
-                        <svg class="svg-clock" xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
-                            <path d="M15.8 16.7L17.2 15.3L13.5 11.6V7H11.5V12.4L15.8 16.7ZM12.5 22C11.1167 22 9.81667 21.7375 8.6 21.2125C7.38333 20.6875 6.325 19.975 5.425 19.075C4.525 18.175 3.8125 17.1167 3.2875 15.9C2.7625 14.6833 2.5 13.3833 2.5 12C2.5 10.6167 2.7625 9.31667 3.2875 8.1C3.8125 6.88333 4.525 5.825 5.425 4.925C6.325 4.025 7.38333 3.3125 8.6 2.7875C9.81667 2.2625 11.1167 2 12.5 2C13.8833 2 15.1833 2.2625 16.4 2.7875C17.6167 3.3125 18.675 4.025 19.575 4.925C20.475 5.825 21.1875 6.88333 21.7125 8.1C22.2375 9.31667 22.5 10.6167 22.5 12C22.5 13.3833 22.2375 14.6833 21.7125 15.9C21.1875 17.1167 20.475 18.175 19.575 19.075C18.675 19.975 17.6167 20.6875 16.4 21.2125C15.1833 21.7375 13.8833 22 12.5 22ZM12.5 20C14.7167 20 16.6042 19.2208 18.1625 17.6625C19.7208 16.1042 20.5 14.2167 20.5 12C20.5 9.78333 19.7208 7.89583 18.1625 6.3375C16.6042 4.77917 14.7167 4 12.5 4C10.2833 4 8.39583 4.77917 6.8375 6.3375C5.27917 7.89583 4.5 9.78333 4.5 12C4.5 14.2167 5.27917 16.1042 6.8375 17.6625C8.39583 19.2208 10.2833 20 12.5 20Z" fill="black"/>
-                        </svg>
-                        <span id="dropoff-hour-display">10:00</span><span>PM</span>
-                        <select name="sb-time-from" id="dropoff-time-select" class="time-select hidden" autocomplete="off" size="5">
-                            <option value="00:30">00:30</option>
-                            <option value="01:00">01:00</option>
-                            <option value="01:30">01:30</option>
-                            <option value="02:00">02:00</option>
-                            <option value="02:30">02:30</option>
-                            <option value="03:00">03:00</option>
-                            <option value="03:30">03:30</option>
-                            <option value="04:00">04:00</option>
-                            <option value="04:30">04:30</option>
-                            <option value="05:00">05:00</option>
-                            <option value="05:30">05:30</option>
-                            <option value="06:00">06:00</option>
-                            <option value="06:30">06:30</option>
-                            <option value="07:00">07:00</option>
-                            <option value="07:30">07:30</option>
-                            <option value="08:00">08:00</option>
-                            <option value="08:30">08:30</option>
-                            <option value="09:00">09:00</option>
-                            <option value="09:30">09:30</option>
-                            <option value="10:00" selected="">10:00</option>
-                            <option value="10:30">10:30</option>
-                            <option value="11:00">11:00</option>
-                            <option value="11:30">11:30</option>
-                            <option value="12:00">12:00</option>
-                            <option value="12:30">12:30</option>
-                            <option value="13:00">13:00</option>
-                            <option value="13:30">13:30</option>
-                            <option value="14:00">14:00</option>
-                            <option value="14:30">14:30</option>
-                            <option value="15:00">15:00</option>
-                            <option value="15:30">15:30</option>
-                            <option value="16:00">16:00</option>
-                            <option value="16:30">16:30</option>
-                            <option value="17:00">17:00</option>
-                            <option value="17:30">17:30</option>
-                            <option value="18:00">18:00</option>
-                            <option value="18:30">18:30</option>
-                            <option value="19:00">19:00</option>
-                            <option value="19:30">19:30</option>
-                            <option value="20:00">20:00</option>
-                            <option value="20:30">20:30</option>
-                            <option value="21:00">21:00</option>
-                            <option value="21:30">21:30</option>
-                            <option value="22:00">22:00</option>
-                            <option value="22:30">22:30</option>
-                            <option value="23:00">23:00</option>
-                            <option value="23:30">23:30</option>
-                            <option value="00:00">00:00</option>
-                        </select>
-                    </div>
-                    <input type="hidden" id="dropoff-date-input" name="dropoff-date">
-                    <input type="hidden" id="dropoff-time-input" name="dropoff-time">
+                <div>
+                    <p>Drop-off date</p>
+                    <div class="data-picker" id="dropoff-picker-container">
+                        <div class="data-picker-day" id="dropoff-picker">
+                            <svg id="dropoff-calendar-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="20"
+                                 viewBox="0 0 18 20" fill="none">
+                                <path d="M2 20C1.45 20 0.979167 19.8042 0.5875 19.4125C0.195833 19.0208 0 18.55 0 18V4C0 3.45 0.195833 2.97917 0.5875 2.5875C0.979167 2.19583 1.45 2 2 2H3V0H5V2H13V0H15V2H16C16.55 2 17.0208 2.19583 17.4125 2.5875C17.8042 2.97917 18 3.45 18 4V18C18 18.55 17.8042 19.0208 17.4125 19.4125C17.0208 19.8042 16.55 20 16 20H2ZM2 18H16V8H2V18ZM2 6H16V4H2V6Z"
+                                      fill="black"/>
+                            </svg>
+                            <span id="dropoff-date-display"></span>
+                        </div>
+                        <div class="data-picker-hour" id="dropoff-hour-container">
+                            <svg class="svg-clock" xmlns="http://www.w3.org/2000/svg" width="25" height="24"
+                                 viewBox="0 0 25 24" fill="none">
+                                <path d="M15.8 16.7L17.2 15.3L13.5 11.6V7H11.5V12.4L15.8 16.7ZM12.5 22C11.1167 22 9.81667 21.7375 8.6 21.2125C7.38333 20.6875 6.325 19.975 5.425 19.075C4.525 18.175 3.8125 17.1167 3.2875 15.9C2.7625 14.6833 2.5 13.3833 2.5 12C2.5 10.6167 2.7625 9.31667 3.2875 8.1C3.8125 6.88333 4.525 5.825 5.425 4.925C6.325 4.025 7.38333 3.3125 8.6 2.7875C9.81667 2.2625 11.1167 2 12.5 2C13.8833 2 15.1833 2.2625 16.4 2.7875C17.6167 3.3125 18.675 4.025 19.575 4.925C20.475 5.825 21.1875 6.88333 21.7125 8.1C22.2375 9.31667 22.5 10.6167 22.5 12C22.5 13.3833 22.2375 14.6833 21.7125 15.9C21.1875 17.1167 20.475 18.175 19.575 19.075C18.675 19.975 17.6167 20.6875 16.4 21.2125C15.1833 21.7375 13.8833 22 12.5 22ZM12.5 20C14.7167 20 16.6042 19.2208 18.1625 17.6625C19.7208 16.1042 20.5 14.2167 20.5 12C20.5 9.78333 19.7208 7.89583 18.1625 6.3375C16.6042 4.77917 14.7167 4 12.5 4C10.2833 4 8.39583 4.77917 6.8375 6.3375C5.27917 7.89583 4.5 9.78333 4.5 12C4.5 14.2167 5.27917 16.1042 6.8375 17.6625C8.39583 19.2208 10.2833 20 12.5 20Z"
+                                      fill="black"/>
+                            </svg>
+                            <span id="dropoff-hour-display">10:00</span><span>PM</span>
+                            <select name="sb-time-from" id="dropoff-time-select" class="time-select hidden"
+                                    autocomplete="off" size="5">
+                                <option value="00:30">00:30</option>
+                                <option value="01:00">01:00</option>
+                                <option value="01:30">01:30</option>
+                                <option value="02:00">02:00</option>
+                                <option value="02:30">02:30</option>
+                                <option value="03:00">03:00</option>
+                                <option value="03:30">03:30</option>
+                                <option value="04:00">04:00</option>
+                                <option value="04:30">04:30</option>
+                                <option value="05:00">05:00</option>
+                                <option value="05:30">05:30</option>
+                                <option value="06:00">06:00</option>
+                                <option value="06:30">06:30</option>
+                                <option value="07:00">07:00</option>
+                                <option value="07:30">07:30</option>
+                                <option value="08:00">08:00</option>
+                                <option value="08:30">08:30</option>
+                                <option value="09:00">09:00</option>
+                                <option value="09:30">09:30</option>
+                                <option value="10:00" selected="">10:00</option>
+                                <option value="10:30">10:30</option>
+                                <option value="11:00">11:00</option>
+                                <option value="11:30">11:30</option>
+                                <option value="12:00">12:00</option>
+                                <option value="12:30">12:30</option>
+                                <option value="13:00">13:00</option>
+                                <option value="13:30">13:30</option>
+                                <option value="14:00">14:00</option>
+                                <option value="14:30">14:30</option>
+                                <option value="15:00">15:00</option>
+                                <option value="15:30">15:30</option>
+                                <option value="16:00">16:00</option>
+                                <option value="16:30">16:30</option>
+                                <option value="17:00">17:00</option>
+                                <option value="17:30">17:30</option>
+                                <option value="18:00">18:00</option>
+                                <option value="18:30">18:30</option>
+                                <option value="19:00">19:00</option>
+                                <option value="19:30">19:30</option>
+                                <option value="20:00">20:00</option>
+                                <option value="20:30">20:30</option>
+                                <option value="21:00">21:00</option>
+                                <option value="21:30">21:30</option>
+                                <option value="22:00">22:00</option>
+                                <option value="22:30">22:30</option>
+                                <option value="23:00">23:00</option>
+                                <option value="23:30">23:30</option>
+                                <option value="00:00">00:00</option>
+                            </select>
+                        </div>
+                        <input type="hidden" id="dropoff-date-input" name="dropoff-date">
+                        <input type="hidden" id="dropoff-time-input" name="dropoff-time">
 
+                    </div>
                 </div>
             </div>
         </div>
@@ -547,10 +560,6 @@
                     </svg>
                 </button>
             </div>
-<!--            <div class="calendar-body-container">-->
-<!--                <div class="calendar-body" id="calendar-body-1"></div>-->
-<!--                <div class="calendar-body" id="calendar-body-2"></div>-->
-<!--            </div>-->
         </div>
 
         <select name="sb-time-from" id="pick-time" autocomplete="off"
