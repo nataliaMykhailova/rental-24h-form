@@ -49,11 +49,10 @@
         bottom: 20px;
     }
 
-    .remove-icon {
-        position: absolute;
-        top: 0;
-        right: 0;
+    .remove-icon2 {
+        display: none;
     }
+
 
     .input-wrapper input {
         width: 100%;
@@ -193,12 +192,17 @@
     }
 
     .calendar-container {
-        width: 100vw;
+        width: 100%;
         height: auto;
-        left: 0 !important;
         box-shadow: none;
         border-radius: 0;
         border: 0;
+    }
+    #calendar-container-modal {
+        width: 100%;
+        margin: 0;
+        padding: 20px;
+        box-sizing: border-box;
     }
 
     .calendar-header {
@@ -209,6 +213,12 @@
     #next-button {
         position: absolute;
         right: 0;
+    }
+
+    .calendar-body{
+        display: grid;
+        grid-template-columns: repeat(7, 14.2%);
+        grid-template-rows: repeat(7, 14vw);
     }
 
     .autocomplete-items {
@@ -223,32 +233,35 @@
     .modal {
         position: fixed;
         z-index: 1000;
-        top: 0;
         left: 0;
-        width: 100%;
+        top: 0;
+        width: 100vw;
         height: 100%;
-        justify-content: center;
-        align-items: center;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
     }
 
     .modal-content {
         background-color: #fff;
-        padding: 20px;
         box-sizing: border-box;
-        width: 100vw;
         text-align: center;
-        max-height: 150px;
     }
 
     .mobi-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding: 20px;
+    }
+
+    .date-picker-modal {
+        padding: 20px;
     }
 
 
 
     .data-picker-day-model {
+        position: relative;
         display: flex;
         border: 1px solid #C9C9CE;
         align-items: center;
@@ -260,6 +273,8 @@
         gap: 16px;
         height: 48px;;
     }
+
+
     .data-picker-day-model:hover,
     .data-picker-day-model:active{
         border: 2px solid #4A44F2;
@@ -285,6 +300,10 @@
         flex-direction: column;
     }
 
+
+    .focused-clas {
+        border: 2px solid #4A44F2;
+    }
 
     .continue-btn {
         display: flex;
@@ -320,7 +339,7 @@
         justify-content: center;
         align-items: center;
         position: fixed;
-        z-index: 1200;
+        z-index: 1000;
         bottom: 0;
         left: 0;
         border-top: 1px solid #ECECEE;
@@ -331,6 +350,12 @@
         padding: 16px;
         box-sizing: border-box;
     }
-
+    .autocomplete-items{
+        box-shadow: none;
+        border-bottom: none;
+        border-right: none;
+        border-left: none;
+        border-top: 1px solid #ECECEE;
+    }
 
 }

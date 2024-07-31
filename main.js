@@ -103,7 +103,23 @@ document.addEventListener("DOMContentLoaded", function() {
         'Poznan - Airport - Lawica, POZ, Poland',
         'Trondheim - Airport, TRD, Norway',
         'Phoenix - Airport, PHX, Arizona, USA',
-        'Portland - International Airport, PDX, Oregon, USA'
+        'Portland - International Airport, PDX, Oregon, USA',
+        'Philadelphia Airport, PHL, Pennsylvania, USA',
+        'Reno Airport, RNO, Nevada, USA',
+        'Marrakech - Airport, RAK, Morocco',
+        'Milan - Airport - Malpensa, MXP, Italy',
+        'Knock - Airport, NOC, Ireland',
+        'Warsaw - Airport - Frederic Chopin, WAW, Poland',
+        'Jerez - Airport, XRY, Spain'
+    ]
+    const popularLocation = [
+        'Warsaw - Airport - Frederic Chopin, WAW, Poland',
+        'Miami - Airport, MIA, Florida, USA',
+        'Kobe - Airport, UKB, Japan',
+        'Reynosa - Airport, REX, Mexico',
+        'Poznan - Airport - Lawica, POZ, Poland',
+        'Trondheim - Airport, TRD, Norway',
+        'Phoenix - Airport, PHX, Arizona, USA',
     ]
 
     function createCustomButton(label, iconPosition, iconType) {
@@ -111,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let svgIcon;
 
         if (iconType === 'rent') {
-            svgIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M19.6 21L13.3 14.7C12.8 15.1 12.225 15.4167 11.575 15.65C10.925 15.8833 10.2333 16 9.5 16C7.68333 16 6.14583 15.3708 4.8875 14.1125C3.62917 12.8542 3 11.3167 3 9.5C3 7.68333 3.62917 6.14583 4.8875 4.8875C6.14583 3.62917 7.68333 3 9.5 3C11.3167 3 12.8542 3.62917 14.1125 4.8875C15.3708 6.14583 16 7.68333 16 9.5C16 10.2333 15.8833 10.925 15.65 11.575C15.4167 12.225 15.1 12.8 14.7 13.3L21 19.6L19.6 21ZM9.5 14C10.75 14 11.8125 13.5625 12.6875 12.6875C13.5625 11.8125 14 10.75 14 9.5C14 8.25 13.5625 7.1875 12.6875 6.3125C11.8125 5.4375 10.75 5 9.5 5C8.25 5 7.1875 5.4375 6.3125 6.3125C5.4375 7.1875 5 8.25 5 9.5C5 10.75 5.4375 11.8125 6.3125 12.6875C7.1875 13.5625 8.25 14 9.5 14Z" fill="black"/></svg>`;
+            svgIcon = `<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill="#000000" fill-rule="evenodd" d="M8 1a.75.75 0 01.691.46l5.25 12.5a.75.75 0 01-1.027.96L8 12.457 3.086 14.92a.75.75 0 01-1.027-.96l5.25-12.5A.75.75 0 018 1zM4.227 12.67l3.437-1.722a.75.75 0 01.672 0l3.437 1.723L8 3.687 4.227 12.67z" clip-rule="evenodd"></path></g></svg>`;
         } else {
             svgIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M14.1 4C15.7167 4 17.1042 4.525 18.2625 5.575C19.4208 6.625 20 7.93333 20 9.5C20 11.0667 19.4208 12.375 18.2625 13.425C17.1042 14.475 15.7167 15 14.1 15H7.8L10.4 17.6L9 19L4 14L9 9L10.4 10.4L7.8 13H14.1C15.15 13 16.0625 12.6667 16.8375 12C17.6125 11.3333 18 10.5 18 9.5C18 8.5 17.6125 7.66667 16.8375 7C16.0625 6.33333 15.15 6 14.1 6H7V4H14.1Z" fill="black"/></svg>`;
         }
@@ -122,6 +138,10 @@ document.addEventListener("DOMContentLoaded", function() {
         buttonDiv.style.alignItems = 'center';
         return buttonDiv;
     }
+
+
+
+
 
     function autocomplete(inp, arr, isPickup) {
         let currentFocus;
@@ -216,27 +236,11 @@ document.addEventListener("DOMContentLoaded", function() {
     autocomplete(locationInput, locationPlace, true);
     autocomplete(returnLocationInput, locationPlace, false);
 
-    function validateInput(input, arr) { // НОВИЙ КОД
-        const inputWrapper = input.closest('.input-wrapper');
-        const errorIcon = inputWrapper ? inputWrapper.querySelector('.error-icon') : null;
-        if (!arr.includes(input.value)) {
-            inputWrapper.classList.add('error');
-            input.classList.add('error');
-            if (errorIcon) {
-                errorIcon.style.display = 'inline';
-            }
-            return false;
-        } else {
-            inputWrapper.classList.remove('error');
-            input.classList.remove('error');
-            if (errorIcon) {
-                errorIcon.style.display = 'none';
-            }
-            return true;
-        }
-    }
 
 
+
+
+    // Submit
     form.onsubmit = function (event) {
         event.preventDefault();
 
@@ -337,13 +341,21 @@ document.addEventListener("DOMContentLoaded", function() {
     };
 
 
+    // Hidden/find dropoff location
     const returnLocationButton = document.querySelector('.return-location');
     const returnLocationWrapper = document.getElementById('returnLocationWrapper');
+    const closeDropoffLocation = document.getElementById('expanded-icon2');
 
     returnLocationButton.addEventListener('click', () => {
         returnLocationButton.classList.add('hidden');
         returnLocationWrapper.classList.remove('hidden');
     });
+
+    closeDropoffLocation.addEventListener('click', () => {
+        returnLocationButton.classList.remove('hidden');
+        returnLocationWrapper.classList.add('hidden');
+    })
+
 })
 
 
@@ -366,8 +378,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentMonth = today.getMonth();
     let currentYear = today.getFullYear();
 
-    let selectedPickupDate = new Date(today);
-    let selectedDropoffDate = new Date(today);
+    let selectedPickupDate = today;
+    let selectedDropoffDate = today;
 
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const weekDays = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
@@ -420,6 +432,7 @@ document.addEventListener('DOMContentLoaded', function () {
             cell.className = 'day-cell';
             cell.textContent = day;
             const date = new Date(year, month, day);
+            cell.dataset.date = date.toISOString(); // Зберігаємо дату у форматі ISO
 
             if (date < today && date.toDateString() !== today.toDateString()) {
                 cell.classList.add('past-date');
@@ -435,6 +448,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 } else {
                     cell.addEventListener('click', () => selectDate(date));
                 }
+
+                cell.addEventListener('mouseover', () => {
+                    if (currentPicker === 'dropoff' && selectedPickupDate && date > selectedPickupDate) {
+                        addInRangeClasses(date);
+                        cell.classList.add('hover-highlight');
+                    }
+                });
+
+                cell.addEventListener('mouseout', () => {
+                    clearInRangeClasses();
+                    cell.classList.remove('hover-highlight');
+                });
             }
 
             if (date.toDateString() === today.toDateString()) {
@@ -492,20 +517,38 @@ document.addEventListener('DOMContentLoaded', function () {
                 selectedDropoffDate = null;
             }
             currentPicker = 'dropoff';
+            pickupPicker.classList.remove('focused-clas');
+            dropoffPicker.classList.add('focused-clas');
         } else if (currentPicker === 'dropoff') {
             selectedDropoffDate = date;
             currentPicker = 'pickup';
+            calendarContainer.style.display = 'none'; // Закрити календар після вибору дати дроп-оф
         }
         updateCalendar();
         updateDateDisplays();
+        updateContinueButton();
     }
 
     function updateDateDisplays() {
         const pickupDateDisplay = document.getElementById('pickup-date-display');
         const dropoffDateDisplay = document.getElementById('dropoff-date-display');
+        const pickupDateDisplayModal = document.getElementById('pickup-date-display-modal'); // NEW
+        const dropoffDateDisplayModal = document.getElementById('dropoff-date-display-modal'); // NEW
 
         pickupDateDisplay.textContent = formatDate(selectedPickupDate);
         dropoffDateDisplay.textContent = formatDate(selectedDropoffDate);
+
+        pickupDateDisplayModal.textContent = `${formatDate(selectedPickupDate)}`; // NEW
+        dropoffDateDisplayModal.textContent = `${formatDate(selectedDropoffDate)}`; // NEW
+
+        // Додав перевірку для активних блоків
+        if (currentPicker === 'pickup') {
+            pickupDateDisplayModal.parentElement.classList.add('active');
+            dropoffDateDisplayModal.parentElement.classList.remove('active');
+        } else {
+            pickupDateDisplayModal.parentElement.classList.remove('active');
+            dropoffDateDisplayModal.parentElement.classList.add('active');
+        }
     }
 
     function formatDate(date) {
@@ -517,9 +560,14 @@ document.addEventListener('DOMContentLoaded', function () {
     function showCalendar(event) {
         event.stopPropagation();
 
+        if (window.innerWidth <= 768) { // NEW
+            showModal(); // NEW
+            return; // NEW
+        } // NEW
+
         calendarContainer.style.display = 'block';
 
-        const rect = event.currentTarget.getBoundingClientRect();
+        const rect = document.getElementById('original-picker-section');
 
         calendarContainer.style.position = 'absolute';
         calendarContainer.style.top = `${rect.bottom + window.scrollY}px`;
@@ -539,7 +587,8 @@ document.addEventListener('DOMContentLoaded', function () {
             !event.target.closest('#pickup-picker') &&
             !event.target.closest('#dropoff-picker') &&
             !event.target.closest('#prev-button') &&
-            !event.target.closest('#next-button')) {
+            !event.target.closest('#next-button') &&
+            currentPicker === 'pickup') {
             calendar.style.display = 'none';
         }
     }
@@ -562,15 +611,100 @@ document.addEventListener('DOMContentLoaded', function () {
         updateCalendar();
     }
 
+    function addInRangeClasses(hoverDate) {
+        document.querySelectorAll('.day-cell').forEach(dayCell => {
+            const dayDate = new Date(dayCell.dataset.date);
+            if (dayDate > selectedPickupDate && dayDate < hoverDate) {
+                dayCell.classList.add('in-range');
+            }
+        });
+    }
+
+    function clearInRangeClasses() {
+        document.querySelectorAll('.day-cell').forEach(dayCell => {
+            dayCell.classList.remove('in-range');
+        });
+    }
+
+    // NEW: Функції для модального вікна
+    function showModal() {
+        const modal = document.getElementById('date-modal');
+        modal.classList.remove('hidden');
+
+        updateModalCalendar(); // Виклик функції оновлення календаря
+
+        document.getElementById('close-modal-btn').addEventListener('click', hideModal);
+        document.getElementById('continue-btn').addEventListener('click', hideModal);
+    }
+
+    function updateModalCalendar() {
+        const modalCalendarContainer = document.getElementById('calendar-container-modal');
+        modalCalendarContainer.innerHTML = ''; // Очищення контейнера календаря модального вікна
+
+        // Масив для зберігання контейнерів для місяців
+        const calendarContainers = [];
+
+        // Створення та додавання контейнерів для 10 місяців
+        for (let i = 0; i < 10; i++) {
+            const calendarSection = document.createElement('div'); // NEW
+            calendarSection.classList.add('calendar-section'); // NEW
+
+            const newContainer = document.createElement('div');
+            newContainer.classList.add('calendar-body');
+
+            const monthYearElement = document.createElement('div'); // NEW
+            monthYearElement.classList.add('month-year'); // NEW
+            calendarSection.appendChild(monthYearElement); // NEW
+
+            calendarSection.appendChild(newContainer);
+            calendarContainers.push(newContainer);
+            modalCalendarContainer.appendChild(calendarSection); // NEW
+        }
+
+        // Заповнення календарів даними для кожного місяця
+        for (let i = 0; i < 10; i++) {
+            const monthYear = getAdjustedMonthYear(currentMonth + i, currentYear);
+            const monthDays = getDaysInMonth(monthYear.year, monthYear.month);
+
+            const monthYearElement = calendarContainers[i].previousElementSibling; // NEW
+            monthYearElement.textContent = `${months[monthYear.month]} ${monthYear.year}`;
+
+            appendWeekDays(calendarContainers[i]);
+            appendDays(calendarContainers[i], monthDays, monthYear.month, monthYear.year);
+        }
+
+        updateDateDisplays(); // Оновлення відображення дати
+    }
+
+    function hideModal() { // NEW
+        const modal = document.getElementById('date-modal');
+        modal.classList.add('hidden');
+    }
+    function updateContinueButton() {
+        const continueButton = document.getElementById('continue-btn');
+        if (selectedDropoffDate) {
+            continueButton.disabled = false;
+            continueButton.style.opacity = 1;
+        } else {
+            continueButton.disabled = true;
+            continueButton.style.opacity = 0.5;
+        }
+    }
+
     // Initial setup
     updateCalendar();
 
     pickupPicker.addEventListener('click', showCalendar);
     dropoffPicker.addEventListener('click', showCalendar);
     document.addEventListener('click', hideCalendar);
-    prevButton.addEventListener('click', showPreviousMonth); // Add event listener for previous month
-    nextButton.addEventListener('click', showNextMonth); // Add event listener for next month
+    prevButton.addEventListener('click', showPreviousMonth);
+    nextButton.addEventListener('click', showNextMonth);
 });
+
+
+
+
+
 
 
 
@@ -616,8 +750,7 @@ function toggleSelectVisibility(containerId, selectId) {
     });
 
     select.addEventListener('change', function () {
-        const selectedTime = this.options[this.selectedIndex].text;
-        document.getElementById(containerId).querySelector('span').innerText = selectedTime;
+        document.getElementById(containerId).querySelector('span').innerText = this.options[this.selectedIndex].text;;
 
         // Hide select after a short delay to ensure selection is processed
         setTimeout(() => {
@@ -723,12 +856,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     const pickupDateDisplay = document.getElementById('pickup-date-display');
-    const pickupTimeSelect = document.getElementById('pickup-time-select');
+    const pickupTimeDisplay = document.getElementById('pickup-time-select');
     const pickupDateInput = document.getElementById('pickup-date-input');
     const pickupTimeInput = document.getElementById('pickup-time-input');
 
     const dropoffDateDisplay = document.getElementById('dropoff-date-display');
-    const dropoffTimeSelect = document.getElementById('dropoff-time-select');
+    const dropoffTimeDisplay = document.getElementById('dropoff-time-select');
     const dropoffDateInput = document.getElementById('dropoff-date-input');
     const dropoffTimeInput = document.getElementById('dropoff-time-input');
 
@@ -748,13 +881,3 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 });
-
-
-
-
-
-
-
-
-
-

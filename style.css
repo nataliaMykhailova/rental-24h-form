@@ -1,5 +1,6 @@
 body {
     background-color: #f2f2f2;
+    
 }
 
 .search-container {
@@ -44,11 +45,13 @@ body {
     display: none;
     position: absolute;
     background-color: white;
-    border: 1px solid #ccc;
     z-index: 20;
-    max-height: 200px;
-    overflow-y: auto;
+    height: 300px;
+    overflow: hidden;
     width: max-content;
+    border-radius: 8px;
+    box-shadow: 0 160px 45px 0 rgba(73, 73, 91, 0.01), 0 102px 41px 0 rgba(73, 73, 91, 0.07), 0 58px 35px 0 rgba(73, 73, 91, 0.22), 0 26px 26px 0 rgba(73, 73, 91, 0.38), 0 6px 14px 0 rgba(73, 73, 91, 0.44);
+
 }
 
 .residence-dropdown.open, .age-dropdown.open {
@@ -59,18 +62,25 @@ body {
 .residence-dropdown input {
     width: 100%;
     padding: 5px;
+    height: 50px;
     box-sizing: border-box;
+    font-size: 16px;
+    outline: none;
+    border: none;
 }
 
 .residence-dropdown select,
 .age-dropdown ul {
     width: 100%;
-    max-height: 200px;
+    height: 300px;
     overflow-y: auto;
+    overflow-x: hidden;
     padding: 0;
     margin: 0;
     list-style: none;
+    box-shadow: 0 160px 45px 0 rgba(73, 73, 91, 0.01), 0 102px 41px 0 rgba(73, 73, 91, 0.07), 0 58px 35px 0 rgba(73, 73, 91, 0.22), 0 26px 26px 0 rgba(73, 73, 91, 0.38), 0 6px 14px 0 rgba(73, 73, 91, 0.44);
 }
+
 
 .residence-dropdown option,
 .age-dropdown li {
@@ -78,6 +88,10 @@ body {
     font-size: 16px;
     cursor: pointer;
     margin: 0 0 0 10px;
+}
+
+li:hover {
+    width: 100%;
 }
 
 .residence-dropdown option:hover,
@@ -232,8 +246,29 @@ body {
     fill: #4A44F2;
 }
 
-.remove-icon{
+.remove-icon {
     display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.remove-icon2 {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#residence-sb-country{
+    border-radius: 0;
+}
+
+select {
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    box-shadow: 0 160px 45px 0 rgba(73, 73, 91, 0.01), 0 102px 41px 0 rgba(73, 73, 91, 0.07), 0 58px 35px 0 rgba(73, 73, 91, 0.22), 0 26px 26px 0 rgba(73, 73, 91, 0.38), 0 6px 14px 0 rgba(73, 73, 91, 0.44);
+
 }
 
 .clear-icon svg {
@@ -525,6 +560,11 @@ input:checked + .slider:before {
     background: #4A44F2;
 }
 
+.day-cell.hover-highlight {
+    background-color: #4A44F2;
+    color: #FFFFFF;
+}
+
 .in-range {
     background: #F2F7FC;
 }
@@ -536,6 +576,10 @@ input:checked + .slider:before {
 
 .data-picker-hour {
     position: relative;
+}
+
+#remove-expanded-icon2{
+
 }
 
 .time-select {
@@ -652,11 +696,6 @@ input:checked + .slider::after {
     height: 40px;
 }
 
-.switch input:focus + .slider::after {
-    width: 40px;
-    height: 40px;
-    background: rgba(74, 68, 242, 0.15);
-}
 
 .switch input:not(:focus):after {
     width: 0;
@@ -723,6 +762,10 @@ input:checked + .slider::after {
     border: none;
     outline-width: 0;
     box-shadow: none;
+}
+
+.submit-btn button:hover{
+    background: rgba(242, 230, 53, 0.6);
 }
 
 .form-group > div {
