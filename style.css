@@ -46,6 +46,10 @@ body {
     border: none;
 }
 
+#dynamic-width-select {
+    margin-right: -2px;
+}
+
 select.open {
     box-shadow: 0 160px 45px 0 rgba(73, 73, 91, 0.01), 0 102px 41px 0 rgba(73, 73, 91, 0.07), 0 58px 35px 0 rgba(73, 73, 91, 0.22), 0 26px 26px 0 rgba(73, 73, 91, 0.38), 0 6px 14px 0 rgba(73, 73, 91, 0.44);
 }
@@ -54,13 +58,16 @@ select.open {
     -moz-appearance: none; /* Firefox */
     -webkit-appearance: none; /* Chrome, Safari, Opera */
     border: none;
-    padding: 0 5px;
     font-size: 16px;
     margin: 0;
     text-decoration: underline;
     outline: none;
     white-space: nowrap;
     background: #ffffff;
+}
+
+.residence-and-age label{
+    padding-right: 5px;
 }
 
 .residence-and-age option {
