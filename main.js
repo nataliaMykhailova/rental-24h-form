@@ -235,9 +235,12 @@ document.addEventListener("DOMContentLoaded", async function () {
             } else {
                 console.log('No nearby locations found.');
             }
+        } else {
+            selectCountry('Ukraine'); // Set default to Aruba if geolocation is not available
         }
     } catch (error) {
         console.error('Error loading locations:', error);
+        selectCountry('Ukraine'); // Set default to Aruba if there is an error loading locations
     }
 
     function extractCountries(data) {
