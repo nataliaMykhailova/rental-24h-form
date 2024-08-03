@@ -8,24 +8,7 @@ document.getElementById('promo-code-toggle').addEventListener('change', function
 });
 
 
-function adjustSelectWidth(selectElement) {
-    const optionText = selectElement.options[selectElement.selectedIndex].text;
-    const tempSelect = document.createElement('select');
-    const tempOption = document.createElement('option');
-    tempOption.textContent = optionText;
-    tempSelect.style.visibility = 'hidden';
-    tempSelect.style.position = 'absolute';
-    tempSelect.appendChild(tempOption);
-    document.body.appendChild(tempSelect);
-    const width = tempSelect.clientWidth;
-    document.body.removeChild(tempSelect);
-    selectElement.style.width = `${width + 15}px`;
-}
 
-document.addEventListener('DOMContentLoaded', function () {
-    const selectElement = document.getElementById('dynamic-width-select');
-    adjustSelectWidth(selectElement);
-});
 
 
 document.querySelectorAll('.input-wrapper').forEach(function (element) {
@@ -64,11 +47,21 @@ document.querySelectorAll('.clear-icon').forEach(icon => {
 
 
 
+
+
+
+
+
+
+
+
 // list location and autocomplit
 document.addEventListener("DOMContentLoaded", async function () {
     const form = document.getElementById('myForm');
     const locationInput = document.getElementById('location');
     const returnLocationInput = document.getElementById('returnLocation');
+    const selectElement = document.getElementById('dynamic-width-select');
+
 
     // Завантаження JSON-файлу
     let locations = [];
@@ -172,7 +165,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                         `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 14 20" fill="none">
 <path d="M7 9.5C6.33696 9.5 5.70107 9.23661 5.23223 8.76777C4.76339 8.29893 4.5 7.66304 4.5 7C4.5 6.33696 4.76339 5.70107 5.23223 5.23223C5.70107 4.76339 6.33696 4.5 7 4.5C7.66304 4.5 8.29893 4.76339 8.76777 5.23223C9.23661 5.70107 9.5 6.33696 9.5 7C9.5 7.3283 9.43534 7.65339 9.3097 7.95671C9.18406 8.26002 8.99991 8.53562 8.76777 8.76777C8.53562 8.99991 8.26002 9.18406 7.95671 9.3097C7.65339 9.43534 7.3283 9.5 7 9.5ZM7 0C5.14348 0 3.36301 0.737498 2.05025 2.05025C0.737498 3.36301 0 5.14348 0 7C0 12.25 7 20 7 20C7 20 14 12.25 14 7C14 5.14348 13.2625 3.36301 11.9497 2.05025C10.637 0.737498 8.85652 0 7 0Z" fill="black"/>
 </svg>`;
-                    b.innerHTML = `<div>${svgIcon} <span style="margin-left: 10px;">${arr[i].display}</span></div>`;
+                    b.innerHTML = `<div class="autocomplete-svg">${svgIcon}</div><div class="autocomplete-next" ">${arr[i].display}</div>`;
                     b.innerHTML += `<input type="hidden" value="${arr[i].display}">`;
                     b.addEventListener('click', function (e) {
                         inp.value = this.getElementsByTagName('input')[0].value;
@@ -226,7 +219,102 @@ document.addEventListener("DOMContentLoaded", async function () {
         document.addEventListener('click', function (e) {
             closeAllLists(e.target);
         });
-    }function findNearestLocation(locations, input) {
+    }
+
+    try {
+        const response = await fetch('./locations.json');
+        const data = await response.json();
+        locations = extractLocations(data);
+        const countries = extractCountries(data);
+        populateSelect(countries);
+        const userCoords = await detectUserLocation(); // Використання await
+        if (userCoords) {
+            const nearestLocation = findNearestLocationCoords(locations, userCoords);
+            if (nearestLocation) {
+                selectCountry(nearestLocation.display.split(', ').pop());
+            } else {
+                console.log('No nearby locations found.');
+            }
+        }
+    } catch (error) {
+        console.error('Error loading locations:', error);
+    }
+
+    function extractCountries(data) {
+        let countriesArray = [];
+        data.Locations.Country.forEach(country => {
+            const countryName = country.$.name;
+            countriesArray.push(countryName);
+        });
+        return countriesArray;
+    }
+
+    function populateSelect(countries) {
+        countries.forEach(country => {
+            const option = document.createElement('option');
+            option.value = country;
+            option.textContent = country;
+            selectElement.appendChild(option);
+        });
+    }
+
+    async function detectUserLocation() {
+        if (navigator.geolocation) {
+            return new Promise((resolve, reject) => {
+                navigator.geolocation.getCurrentPosition(async (position) => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    console.log('User coordinates:', lat, lon);
+                    resolve({ lat, lon });
+                }, (error) => {
+                    console.error('Geolocation error:', error);
+                    resolve(null); // У разі помилки повертаємо null
+                });
+            });
+        } else {
+            console.error('Geolocation is not supported by this browser.');
+            return null; // У разі відсутності підтримки геолокації повертаємо null
+        }
+    }
+
+    function findNearestLocationCoords (locations, userCoords) {
+        const userLat = userCoords.lat;
+        const userLng = userCoords.lon;
+        let nearestLocation = null;
+        let minDistance = Infinity;
+
+        locations.forEach(location => {
+            const distance = calculateDistance(userLat, userLng, location.lat, location.lng);
+            if (distance < minDistance) {
+                minDistance = distance;
+                nearestLocation = location;
+            }
+        });
+
+        return nearestLocation;
+    }
+
+
+
+
+
+    function selectCountry(country) {
+        if (country) {
+            console.log('Detected country:', country);
+            const options = selectElement.options;
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].value === country) {
+                    selectElement.selectedIndex = i;
+                    adjustSelectWidth(selectElement);
+                    break;
+                }
+            }
+        } else {
+            console.log('Country not detected.');
+        }
+    }
+
+    function findNearestLocation(locations, input) {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
                 const userLat = position.coords.latitude;
@@ -271,6 +359,23 @@ document.addEventListener("DOMContentLoaded", async function () {
     function deg2rad(deg) {
         return deg * (Math.PI / 180);
     }
+
+    function adjustSelectWidth(selectElement) {
+        const optionText = selectElement.options[selectElement.selectedIndex].text;
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        const fontSize = window.getComputedStyle(selectElement).fontSize;
+        const fontFamily = window.getComputedStyle(selectElement).fontFamily;
+        context.font = `${fontSize} ${fontFamily}`;
+        const width = context.measureText(optionText).width;
+        selectElement.style.width = `${width +10}px`;
+    }
+
+
+    selectElement.addEventListener('change', function() {
+        adjustSelectWidth(this);
+    });
+
 
     autocomplete(locationInput, locations, true);
     autocomplete(returnLocationInput, locations, false);
@@ -929,13 +1034,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function toggleSelectVisibility(containerId, selectId) {
         if (window.innerWidth <= 768) return; // Відключаємо для мобільної версії
-
+        hideCalendar();
         const container = document.getElementById(containerId);
         const select = document.getElementById(selectId);
 
         container.addEventListener('click', function (event) {
-            event.stopPropagation();
+            // event.stopPropagation();
             select.classList.toggle('hidden');
+
             select.style.position = 'absolute';
             select.style.top = container.offsetHeight + 'px';
             select.style.left = '0';
@@ -962,7 +1068,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.querySelectorAll('.data-picker-day, .data-picker-hour').forEach(function (element) {
         element.addEventListener('click', function (event) {
-            event.stopPropagation();
+            // event.stopPropagation();
             document.querySelectorAll('.data-picker-day, .data-picker-hour').forEach(function (el) {
                 el.classList.remove('focused-clas');
             });

@@ -46,9 +46,7 @@ body {
     border: none;
 }
 
-#dynamic-width-select {
-    margin-right: -10px;
-}
+
 
 select.open {
     box-shadow: 0 160px 45px 0 rgba(73, 73, 91, 0.01), 0 102px 41px 0 rgba(73, 73, 91, 0.07), 0 58px 35px 0 rgba(73, 73, 91, 0.22), 0 26px 26px 0 rgba(73, 73, 91, 0.38), 0 6px 14px 0 rgba(73, 73, 91, 0.44);
@@ -58,8 +56,9 @@ select.open {
     -moz-appearance: none; /* Firefox */
     -webkit-appearance: none; /* Chrome, Safari, Opera */
     border: none;
-    padding: 10px;
+    padding: 0 5px;
     font-size: 16px;
+    margin: 0;
     text-decoration: underline;
     outline: none;
     white-space: nowrap;
@@ -111,11 +110,13 @@ select.open {
     border-top: 1px solid #C9C9CE;
     border-bottom: 1px solid #C9C9CE;
     border-left: 1px solid #C9C9CE;
+    transition: border-color 0.5s;
 }
 
 .data-picker-hour {
     border-radius: 0 8px 8px 0;
     border: 1px solid #C9C9CE;
+    transition: border-color 0.5s;
 }
 
 .form-group {
@@ -143,7 +144,7 @@ select.open {
     left: 10px;
     transform: translateY(-50%);
     fill: #000;
-    transition: fill 0.3s;
+    transition: fill 0.5s;
 }
 
 .error-icon {
@@ -152,6 +153,7 @@ select.open {
     bottom: 25px;
     right: 10px;
     fill: #D4281E;
+    transition: fill 0.5s;
 }
 
 .clear-icon {
@@ -164,12 +166,14 @@ select.open {
 
 .error input {
     outline: 1px solid #D4281E;
-    border: 1px solid #D4281E; /* Додаємо бордер, щоб перекрити стилі фокусу */
+    border: 1px solid #D4281E;
+    transition: border-color 0.5s;
 }
 
 .error input:focus,
 .error input:active {
-    border: 1px solid #D4281E; /* Перекриваємо стилі фокусу і активного стану */
+    border: 1px solid #D4281E;
+    transition: border-color 0.5s;
 }
 
 
@@ -180,6 +184,7 @@ select.open {
 .input-wrapper.error:active #loc-icon path,
 .input-wrapper.error.focused #loc-icon path {
     fill: #D4281E;
+    transition: fill 0.5s;
 }
 #returnLocationWrapper:hover #drop-of-icon path,
 .data-picker-day:hover svg path,
@@ -192,6 +197,7 @@ select.open {
 .input-wrapper.error:hover #loc-icon path,
 .input-wrapper.error.focused #loc-icon path{
     fill: #4A44F2;
+    transition: fill 0.5s;
 }
 
 .remove-icon {
@@ -206,6 +212,7 @@ select.open {
     position: absolute;
     top: 0;
     right: 0;
+    cursor: pointer;
 }
 
 #residence-sb-country{
@@ -215,9 +222,11 @@ select.open {
 
 .clear-icon svg {
     fill: black;
+    transition: fill 0.5s;
 }
 .clear-icon:hover path{
     fill: black;
+    transition: fill 0.5s;
 }
 .input-wrapper input.filled +.clear-icon {
     display: block;
@@ -234,6 +243,7 @@ select.open {
     align-self: stretch;
     border-radius: 8px;
     border: 1px solid #C9C9CE;
+    transition: border-color 0.5s;
     font-size: 16px;
     font-weight: 400;
     padding-right: 32px;
@@ -248,20 +258,24 @@ select.open {
 
 .input-wrapper input:focus {
     border: 2px solid #4A44F2;
+    transition: border-color 0.5s;
     outline: none;
 }
 
 .input-wrapper.error input:focus {
     border: 2px solid #D4281E;
+    transition: border-color 0.5s;
     outline: none;
 }
 
 .input-wrapper input:active {
     border: 2px solid #4A44F2;
+    transition: border-color 0.5s;
 }
 
 .input-wrapper.error input:active {
     border: 2px solid #D4281E;
+    transition: border-color 0.5s;
 }
 
 .return-location {
@@ -273,10 +287,11 @@ select.open {
 }
 
 .return-location p {
-    margin-left: 12px;
+    margin-left: 6px;
     color: #8A9197;
     font-size: 16px;
     font-weight: 400;
+    cursor: pointer;
 }
 
 .return-location:hover {
@@ -284,9 +299,8 @@ select.open {
     background: #F2F2F5;
 }
 
-.return-location:active {
-    border-radius: 8px;
-    border: 2px solid #4A44F2;
+.plus-svg{
+    margin-left: 10px;
 }
 
 .hidden {
@@ -302,6 +316,7 @@ select.open {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    transition: border-color 0.5s;
 }
 
 .form-group input[type="checkbox"] {
@@ -476,6 +491,7 @@ input:checked + .slider:before {
     gap: 10px;
     border-radius: 4px;
     border: 1px solid #4A44F2;
+    transition: border-color 0.5s;
 }
 
 .day-cell:hover {
@@ -531,6 +547,7 @@ input:checked + .slider:before {
     background-color: white;
     width: 100%;
     border: 1px solid black;
+    transition: border-color 0.5s;
     outline: none;
     border-radius: 5px;
 }
@@ -554,10 +571,12 @@ input:checked + .slider:before {
 
 .focused-clas {
     border: 2px solid #4A44F2;
+    transition: border-color 0.5s;
 }
 
 .focused-clas svg path {
     fill: #4A44F2;
+    transition: fill 0.5s;
 }
 
 .switch {
@@ -582,7 +601,7 @@ input:checked + .slider:before {
     right: 0;
     bottom: 0;
     background-color: #FAFAFA;
-    transition: .4s;
+    transition: .5s;
     border-radius: 34px;
     border: 1px solid #C9C9CE;
 }
@@ -629,12 +648,16 @@ input:checked + .slider:before {
 
 input:checked + .slider::after {
     left: calc(100% - 17px);
-
 }
-
-.switch input:hover + .slider::after {
+.switch input:checked:hover + .slider::after {
     width: 40px;
     height: 40px;
+}
+
+
+.switch input:hover + .slider::after {
+    width: 34px;
+    height: 34px;
 }
 
 
@@ -670,6 +693,7 @@ input:checked + .slider::after {
     border-radius: 8px;
     border: 1px solid #C9C9CE;
     font-size: 16px;
+    transition: border-color 0.5s;
 }
 
 #promo-code::placeholder {
@@ -684,8 +708,8 @@ input:checked + .slider::after {
 #promo-code:focus,
 #promo-code:active {
     border: 2px solid #4A44F2;
+    transition: border-color 0.5s;
     outline: none;
-    font-weight: bold;
 }
 
 .submit-btn button{
@@ -694,6 +718,7 @@ input:checked + .slider::after {
     height: 56px;
     border-radius: 8px;
     background: #F2E635;
+    transition: background-color 0.5s;
     font-size: 16px;
     color: #000;
     text-align: center;
@@ -707,6 +732,7 @@ input:checked + .slider::after {
 
 .submit-btn button:hover{
     background: rgba(242, 230, 53, 0.6);
+    transition: 0.5s;
 }
 
 .form-group > div {
@@ -716,22 +742,27 @@ input:checked + .slider::after {
 
 
 .autocomplete-items {
+    margin: 0;
+    padding: 0;
     position: absolute;
     border: 1px solid #d4d4d4;
+    transition: border-color 0.5s;
     border-bottom: none;
     border-top: none;
     z-index: 99;
     top: 100%;
     left: 0;
     right: 0;
+    width: 100%;
     max-height: 400px;
     overflow-y: auto;
     border-radius: 8px;
     box-shadow: 0 160px 45px 0 rgba(73, 73, 91, 0.01), 0 102px 41px 0 rgba(73, 73, 91, 0.07), 0 58px 35px 0 rgba(73, 73, 91, 0.22), 0 26px 26px 0 rgba(73, 73, 91, 0.38), 0 6px 14px 0 rgba(73, 73, 91, 0.44);
 }
 
-.autocomplete-items div {
-    padding: 10px;
+.autocomplete-items>div {
+    padding-left: 10px;
+    box-sizing: border-box;
     cursor: pointer;
     background-color: #fff;
     border-bottom: 1px solid #d4d4d4;
@@ -739,10 +770,18 @@ input:checked + .slider::after {
     font-size: 16px;
     font-weight: 400;
     line-height: 20px;
-    height: 48px;
+    width: 100%;
+    height: 65px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
+}
+
+.autocomplete-svg {
+
+}
+.autocomplete-next {
+
 }
 
 
