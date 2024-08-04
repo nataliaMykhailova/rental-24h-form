@@ -64,6 +64,7 @@ select.open {
     outline: none;
     white-space: nowrap;
     background: #ffffff;
+    cursor: pointer;
 }
 
 .residence-and-age label{
@@ -289,6 +290,7 @@ select.open {
     justify-content: flex-start;
     align-items: center;
     align-self: stretch;
+    cursor: pointer;
 }
 
 .return-location p {
@@ -363,6 +365,7 @@ select.open {
     background-color: #ccc;
     transition: .4s;
     border-radius: 34px;
+    overflow: hidden;
 }
 
 .slider:before {
@@ -654,10 +657,7 @@ input:checked + .slider:before {
 input:checked + .slider::after {
     left: calc(100% - 17px);
 }
-.switch input:checked:hover + .slider::after {
-    width: 40px;
-    height: 40px;
-}
+
 
 
 .switch input:hover + .slider::after {
@@ -733,6 +733,7 @@ input:checked + .slider::after {
     border: none;
     outline-width: 0;
     box-shadow: none;
+    cursor: pointer;
 }
 
 .submit-btn button:hover{
