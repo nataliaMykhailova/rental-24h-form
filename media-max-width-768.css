@@ -267,8 +267,8 @@
         z-index: 1000;
         left: 0;
         top: 0;
-        width: 100vw;
-        height: 100%;
+        width: 100dvw;
+        height: 100dvh;
         overflow: auto;
         background-color: #ffffff;
     }
@@ -329,7 +329,6 @@
     }
 
     .data-picker-hour-model {
-        /*position: relative;*/
         display: flex;
         justify-content: flex-start;
         align-items: center;
@@ -377,8 +376,6 @@
         line-height: 16px;
     }
 
-    /*    стилістика нового вікна календаря*/
-    /* Стилі для клонованої секції */
     #original-picker-section {
         display: flex;
         justify-content: space-between;
@@ -445,10 +442,11 @@
         border-top: 1px solid #ECECEE;
         border-bottom: 1px solid  #ECECEE;
         background: rgba(255, 255, 255);
-        width: 100vw;
+        width: 100dvw;
         height: 72px;
         padding: 16px;
         box-sizing: border-box;
+        margin-bottom: env(safe-area-inset-bottom);
     }
     .fixed-on-focus {
         position: fixed;
@@ -456,16 +454,9 @@
         left: 0;
         width: 100%;
         height: 100%;
-        z-index: 1000; /* Забезпечує, що елемент буде поверх інших */
-        background-color: #ffffff; /* Додайте фон для видимості */
+        z-index: 1000;
+        background-color: #ffffff;
     }
-
-
-
-
-
-    /*Mobile time section*/
-
 
     #dropoff-hour-container-modal {
         display: none;
@@ -505,16 +496,6 @@
         background:#4A44F2;
         color: #ffffff;
     }
-
-
-
-
-
-
-
-
-
-
 
 
 
