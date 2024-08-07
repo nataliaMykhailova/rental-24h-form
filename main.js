@@ -130,6 +130,13 @@ document.addEventListener("DOMContentLoaded", async function () {
         return buttonDiv;
     }
 
+    function removeActiveClass(inputElement) {
+        const svgIcon = inputElement.parentNode.querySelector('#loc-icon');
+        if (svgIcon) {
+            svgIcon.classList.remove('active');
+        }
+    }
+
     function autocomplete(inp, arr, isPickup) {
         let currentFocus;
         inp.addEventListener('input', function (e) {
@@ -149,6 +156,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 rentNearMeDiv.addEventListener('click', function (e) {
                     findNearestLocation(locations, inp);
                     closeAllLists();
+                    removeActiveClass(inp);
                 });
                 a.appendChild(rentNearMeDiv);
             } else {
@@ -156,6 +164,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 returnAtPickupDiv.addEventListener('click', function (e) {
                     inp.value = locationInput.value;
                     closeAllLists();
+                    removeActiveClass(inp);
                 });
                 a.appendChild(returnAtPickupDiv);
             }for (i = 0; i < arr.length; i++) {
@@ -173,6 +182,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     b.addEventListener('click', function (e) {
                         inp.value = this.getElementsByTagName('input')[0].value;
                         closeAllLists();
+                        removeActiveClass(inp);
                     });
                     a.appendChild(b);
                 }
@@ -215,6 +225,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             for (let i = 0; i < x.length; i++) {
                 if (elmnt !== x[i] && elmnt !== inp) {
                     x[i].parentNode.removeChild(x[i]);
+                    removeActiveClass(inp);
                 }
             }
         }
