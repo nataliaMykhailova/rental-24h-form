@@ -206,18 +206,29 @@ select.open {
     transition: fill 0.5s;
 }
 
-#returnLocationWrapper:hover #drop-of-icon path,
-.data-picker-day:hover svg path,
-.input-wrapper:hover #loc-icon path,
-.input-wrapper.error:hover #drop-of-icon path,
+@media (min-width: 768px) {
+    #returnLocationWrapper:hover #drop-of-icon path,
+    .data-picker-day:hover svg path,
+    .input-wrapper:hover #loc-icon path,
+    .input-wrapper.error:hover #loc-icon path,
+    .input-wrapper.error:hover #drop-of-icon path {
+        fill: #4A44F2;
+        transition: fill 0.5s;
+    }
+
+}
+
+
+
 .input-wrapper.error.focused #drop-of-icon path,
 .input-wrapper.focused #loc-icon path,
 #returnLocationWrapper.focused #drop-of-icon path,
-.input-wrapper.error:hover #loc-icon path,
 .input-wrapper.error.focused #loc-icon path{
     fill: #4A44F2;
     transition: fill 0.5s;
 }
+
+
 
 .remove-icon {
     display: none;
