@@ -42,6 +42,8 @@ document.querySelectorAll('.clear-icon').forEach(icon => {
         input.value = '';
         input.classList.remove('filled');
         input.focus();
+        const submitBtn = document.querySelector('.submit-btn');
+        submitBtn.style.display = 'block';
     });
 });
 

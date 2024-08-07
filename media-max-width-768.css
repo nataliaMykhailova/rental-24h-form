@@ -433,11 +433,6 @@
         margin-top: 0;
     }
 
-    .day-cell:hover {
-        border-radius: 8px;
-        background: none;
-    }
-
     .background-btn {
         display: flex;
         justify-content: center;
@@ -531,8 +526,12 @@
     .focused-clas {
         border: 2px solid #4A44F2;
     }
-
-
+    @media (hover: hover) {
+        .day-cell:hover {
+            border-radius: 8px;
+            background: #CDDFFD;
+        }
+    }
 
 
 }
