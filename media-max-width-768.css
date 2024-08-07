@@ -181,6 +181,8 @@
         height: auto;
     }
 
+
+
     .svg-clock {
         display: block;
     }
@@ -360,11 +362,11 @@
     }
 
 
-    .data-picker-day-model:hover,
+
     .data-picker-day-model:active{
         border: 2px solid #4A44F2;
     }
-    .data-picker-day-model:hover svg path,
+
     .data-picker-day-model:active svg path{
         fill: #4a44f2;
     }
@@ -431,6 +433,11 @@
         margin-top: 0;
     }
 
+    .day-cell:hover {
+        border-radius: 8px;
+        background: none;
+    }
+
     .background-btn {
         display: flex;
         justify-content: center;
@@ -490,13 +497,6 @@
         background: #4A44F2;
         color: #ffffff;
     }
-
-    .time-option:hover {
-        border-radius: 8px;
-        background:#4A44F2;
-        color: #ffffff;
-    }
-
 
 
     .modal-content-location {

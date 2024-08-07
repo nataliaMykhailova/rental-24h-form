@@ -41,6 +41,7 @@ document.querySelectorAll('.clear-icon').forEach(icon => {
         const input = this.previousElementSibling;
         input.value = '';
         input.classList.remove('filled');
+        input.focus();
     });
 });
 
@@ -614,6 +615,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (currentPicker === 'dropoff' && selectedPickupDate && date > selectedPickupDate) {
                             addInRangeClasses(date);
                             cell.classList.add('hover-highlight');
+                        } else if (currentPicker === 'pickup' && date > today && (!selectedDropoffDate || date < selectedDropoffDate)) {
+                            addInRangeClasses(date);
+                            cell.classList.add('hover-highlight');
                         }
                     });
 
@@ -622,8 +626,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         cell.classList.remove('hover-highlight');
                     });
                 }
-
-
             }
 
             if (date.toDateString() === today.toDateString()) {
@@ -720,7 +722,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function formatDate(date) {
-        if (!date) return 'N/A';
+        if (!date) return '';
         const options = {month: 'short', day: 'numeric'};
         return date.toLocaleDateString('en-US', options);
     }
@@ -776,8 +778,15 @@ document.addEventListener('DOMContentLoaded', function () {
     function addInRangeClasses(hoverDate) {
         document.querySelectorAll('.day-cell').forEach(dayCell => {
             const dayDate = new Date(dayCell.dataset.date);
-            if (dayDate > selectedPickupDate && dayDate < hoverDate) {
-                dayCell.classList.add('in-range');
+
+            if (currentPicker === 'dropoff' && selectedPickupDate) {
+                if (dayDate > selectedPickupDate && dayDate < hoverDate) {
+                    dayCell.classList.add('in-range');
+                }
+            } else if (currentPicker === 'pickup' && selectedDropoffDate) {
+                if (dayDate > hoverDate && dayDate < selectedDropoffDate) {
+                    dayCell.classList.add('in-range');
+                }
             }
         });
     }
@@ -844,21 +853,20 @@ document.addEventListener('DOMContentLoaded', function () {
         weekBody.style.display = 'none';
         dropoffHourContainerModal.style.display = 'flex';
         pickupHourContainerModal.style.display = 'flex';
-        pickupHourContainerModal.classList.add('focused-clas')
-        dropoffHourContainerModal.classList.remove('focused-clas')
+        pickupHourContainerModal.classList.add('focused-clas');
+        dropoffHourContainerModal.classList.remove('focused-clas');
         headerData.querySelector('h3').textContent = 'Select pick-up time';
         currentPickerTime = 'pickupTime';
 
-        modal.scrollTop = 0;
 
-
-        document.getElementById('add').classList.remove('data-picker')
+        document.getElementById('add').classList.remove('data-picker');
         document.querySelectorAll('.remove').forEach(clases => {
-            clases.classList.remove('date-model-data')
-        })
+            clases.classList.remove('date-model-data');
+        });
         document.querySelectorAll('.add-rem').forEach(clases => {
-            clases.classList.add('time-date')
-        })
+            clases.classList.add('time-date');
+        });
+
         document.querySelectorAll('#time-select-container-pickup .time-option').forEach(button => {
             if (button.textContent === pickupHourDisplay.textContent) {
                 button.classList.add('active');
@@ -866,6 +874,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 button.classList.remove('active');
             }
         });
+
+        const activeOption = document.querySelector('#time-select-container-pickup .time-option[selected]');
+        const modalHeader = document.querySelector('.modal-header');
+        if (activeOption && modalHeader) {
+            const modalHeaderHeight = modalHeader.offsetHeight;
+            const activeOptionOffsetTop = activeOption.offsetTop;
+            const scrollPosition = activeOptionOffsetTop - modalHeaderHeight;
+            modal.scrollTop = scrollPosition;
+        }
     }
 
     // Функція для показу модального вікна з вибором часу для dropoff
@@ -887,8 +904,6 @@ document.addEventListener('DOMContentLoaded', function () {
         headerData.querySelector('h3').textContent = 'Select drop-off time';
         currentPickerTime = 'dropoffTime';
 
-        modal.scrollTop = 0;
-
         document.getElementById('add').classList.remove('data-picker')
         document.querySelectorAll('.remove').forEach(clases => {
             clases.classList.remove('date-model-data')
@@ -904,6 +919,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 button.classList.remove('active');
             }
         });
+        const activeOption = document.querySelector('#time-select-container-dropoff .time-option.active');
+        const modalHeader = document.querySelector('.modal-header');
+
+        if (activeOption && modalHeader) {
+            const modalHeaderHeight = modalHeader.offsetHeight;
+            const activeOptionOffsetTop = activeOption.offsetTop;
+            const scrollPosition = activeOptionOffsetTop - modalHeaderHeight;
+
+            modal.scrollTop = scrollPosition;
+        }
     }
 
     function updateModalCalendar() {
@@ -1142,6 +1167,12 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
+        locationInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                expandForm();
+            }
+        });
+
         removeIcon.addEventListener('click', function () {
             formContainer.classList.remove('expanded');
             document.querySelectorAll('.return-location, .data-picker-container, .residence-and-age, .check-box, .input-wrapper, .submit-btn, .promo-code, #returnLocationWrapper')
@@ -1162,3 +1193,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
     }
 });
+

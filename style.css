@@ -65,6 +65,7 @@ select.open {
     white-space: nowrap;
     background: #ffffff;
     cursor: pointer;
+    color: black;
 }
 
 .residence-and-age label{
@@ -478,9 +479,15 @@ input:checked + .slider:before {
     grid-template-rows: repeat(7, 48px);
 }
 
+.calendar-container, .calendar-body, .day-cell, .time-option {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+}
+
 .day-cell {
-    width: 48px;
-    height: 48px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -521,7 +528,6 @@ input:checked + .slider:before {
 .day-cell:hover {
     border-radius: 8px;
     background: #CDDFFD;
-
 }
 
 .selected-pickup {
