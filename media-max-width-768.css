@@ -26,6 +26,7 @@
     .input-wrapper:active #loc-icon path,
     .input-wrapper:active #drop-of-icon path{
         fill: black;
+
     }
 
     .residence-and-age,
