@@ -532,9 +532,7 @@
         }
     }
     .input-wrapper.filled #loc-icon path,
-    #returnLocationWrapper.filled #drop-of-icon path,
-    .input-wrapper:hover #loc-icon path,
-    #returnLocationWrapper:hover #drop-of-icon path{
+    #returnLocationWrapper.filled #drop-of-icon path{
         fill: none;
     }
 
