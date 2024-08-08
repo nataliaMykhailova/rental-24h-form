@@ -261,6 +261,11 @@ select.open {
 .input-wrapper input.filled +.clear-icon {
     display: block;
 }
+#returnLocationWrapper.filled #drop-of-icon path,
+.input-wrapper.filled #loc-icon path{
+    fill: none;
+}
+
 .input-wrapper input {
     padding-left: 40px;
     width: 440px;
