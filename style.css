@@ -22,10 +22,6 @@ body {
 }
 
 
-
-
-
-
 .residence-and-age {
     display: flex;
     align-items: center;
@@ -53,6 +49,7 @@ body {
 select.open {
     box-shadow: 0 160px 45px 0 rgba(73, 73, 91, 0.01), 0 102px 41px 0 rgba(73, 73, 91, 0.07), 0 58px 35px 0 rgba(73, 73, 91, 0.22), 0 26px 26px 0 rgba(73, 73, 91, 0.38), 0 6px 14px 0 rgba(73, 73, 91, 0.44);
 }
+
 .residence-and-age select {
     appearance: none; /* Firefox */
     -moz-appearance: none; /* Firefox */
@@ -68,7 +65,7 @@ select.open {
     color: black;
 }
 
-.residence-and-age label{
+.residence-and-age label {
     padding-right: 5px;
 }
 
@@ -85,7 +82,6 @@ select.open {
     position: relative;
     display: inline-block;
 }
-
 
 
 #original-picker-section {
@@ -189,6 +185,7 @@ select.open {
 .input-wrapper.error .error-icon {
     display: inline;
 }
+
 .input-wrapper.error:active #loc-icon path,
 .input-wrapper.error.focused #loc-icon path {
     fill: #D4281E;
@@ -200,32 +197,22 @@ select.open {
 .input-wrapper #loc-icon path,
 .input-wrapper #drop-of-icon path,
 .input-wrapper.error #drop-of-icon path,
-.input-wrapper.error #loc-icon path{
+.input-wrapper.error #loc-icon path {
     transition: fill 0.5s;
 }
 
-@media (min-width: 768px) {
-    #returnLocationWrapper:hover #drop-of-icon path,
-    .data-picker-day:hover svg path,
-    .input-wrapper:hover #loc-icon path,
-    .input-wrapper.error:hover #loc-icon path,
-    .input-wrapper.error:hover #drop-of-icon path {
-        fill: #4A44F2;
-        transition: fill 0.5s;
-    }
-
-}
-
-
-
+#returnLocationWrapper:hover #drop-of-icon path,
+.data-picker-day:hover svg path,
+.input-wrapper:hover #loc-icon path,
+.input-wrapper.error:hover #loc-icon path,
+.input-wrapper.error:hover #drop-of-icon path,
 .input-wrapper.error.focused #drop-of-icon path,
 .input-wrapper.focused #loc-icon path,
 #returnLocationWrapper.focused #drop-of-icon path,
-.input-wrapper.error.focused #loc-icon path{
+.input-wrapper.error.focused #loc-icon path {
     fill: #4A44F2;
     transition: fill 0.5s;
 }
-
 
 
 .remove-icon {
@@ -243,7 +230,7 @@ select.open {
     cursor: pointer;
 }
 
-#residence-sb-country{
+#residence-sb-country {
     border-radius: 0;
 }
 
@@ -252,15 +239,18 @@ select.open {
     fill: black;
     transition: fill 0.5s;
 }
-.clear-icon:hover path{
+
+.clear-icon:hover path {
     fill: black;
     transition: fill 0.5s;
 }
-.input-wrapper input.filled +.clear-icon {
+
+.input-wrapper input.filled + .clear-icon {
     display: block;
 }
+
 #returnLocationWrapper.filled #drop-of-icon path,
-.input-wrapper.filled #loc-icon path{
+.input-wrapper.filled #loc-icon path {
     fill: none;
 }
 
@@ -336,7 +326,7 @@ select.open {
     transition: background 0.5s;
 }
 
-.plus-svg{
+.plus-svg {
     margin-left: 10px;
 }
 
@@ -538,7 +528,7 @@ input:checked + .slider:before {
     transition: border-color 0.5s;
 }
 
-@media (min-width: 768px){
+@media (min-width: 768px) {
     .day-cell:hover {
         border-radius: 8px;
         background: #CDDFFD;
@@ -581,7 +571,7 @@ input:checked + .slider:before {
     position: relative;
 }
 
-#remove-expanded-icon2{
+#remove-expanded-icon2 {
 
 }
 
@@ -697,7 +687,6 @@ input:checked + .slider::after {
 }
 
 
-
 .switch input:hover + .slider::after {
     width: 34px;
     height: 34px;
@@ -755,7 +744,7 @@ input:checked + .slider::after {
     outline: none;
 }
 
-.submit-btn button{
+.submit-btn button {
     margin-top: 20px;
     width: 440px;
     height: 56px;
@@ -774,7 +763,7 @@ input:checked + .slider::after {
     cursor: pointer;
 }
 
-.submit-btn button:hover{
+.submit-btn button:hover {
     background: rgba(242, 230, 53, 0.6);
     transition: 0.5s;
 }
@@ -804,7 +793,7 @@ input:checked + .slider::after {
     box-shadow: 0 160px 45px 0 rgba(73, 73, 91, 0.01), 0 102px 41px 0 rgba(73, 73, 91, 0.07), 0 58px 35px 0 rgba(73, 73, 91, 0.22), 0 26px 26px 0 rgba(73, 73, 91, 0.38), 0 6px 14px 0 rgba(73, 73, 91, 0.44);
 }
 
-.autocomplete-items>div {
+.autocomplete-items > div {
     padding-left: 10px;
     box-sizing: border-box;
     cursor: pointer;
@@ -856,9 +845,11 @@ input:checked + .slider::after {
 .autocomplete-items::-webkit-scrollbar-button {
     display: none;
 }
+
 .svg-clock {
     display: none;
 }
+
 .data-picker select {
     box-shadow: 0 160px 45px 0 rgba(73, 73, 91, 0.01), 0 102px 41px 0 rgba(73, 73, 91, 0.07), 0 58px 35px 0 rgba(73, 73, 91, 0.22), 0 26px 26px 0 rgba(73, 73, 91, 0.38), 0 6px 14px 0 rgba(73, 73, 91, 0.44);
     border: none;

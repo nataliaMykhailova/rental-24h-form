@@ -526,9 +526,15 @@
         border: 2px solid #4A44F2;
     }
     @media (hover: hover) {
-        .day-cell:hover {
+        .day-cell:hover{
             border-radius: 8px;
             background: #CDDFFD;
+        }
+    }
+    @media (hover: hover) {
+        #returnLocationWrapper:hover #drop-of-icon path,
+        .input-wrapper:hover #loc-icon path{
+            fill: black;
         }
     }
     #returnLocationWrapper.filled #drop-of-icon path,
