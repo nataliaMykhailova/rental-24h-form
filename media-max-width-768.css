@@ -23,11 +23,6 @@
         background: #4A44F2;
     }
 
-    .input-wrapper:active #loc-icon path,
-    .input-wrapper:active #drop-of-icon path{
-        fill: black;
-
-    }
 
     .residence-and-age,
     .return-location,
@@ -82,6 +77,10 @@
     #pickupLabel {
         color: transparent;
         position: relative;
+    }
+    #returnLocationWrapper:hover #drop-of-icon path,
+    .input-wrapper:hover #loc-icon path{
+        fill: black;
     }
 
     #pickupLabel::after {
