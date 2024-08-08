@@ -78,8 +78,8 @@
         color: transparent;
         position: relative;
     }
-    #returnLocationWrapper:hover #drop-of-icon path,
-    .input-wrapper:hover #loc-icon path{
+    #returnLocationWrapper:active #drop-of-icon path,
+    .input-wrapper:active #loc-icon path{
         fill: black;
     }
 
