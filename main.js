@@ -1158,13 +1158,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Функція для розширення форми
         const expandForm = () => {
+            const returnLocationInput = returnLocationWrapper.querySelector('input');
             document.querySelectorAll('.return-location, .data-picker-container, .residence-and-age, .check-box, .input-wrapper, .submit-btn, .promo-code, #returnLocationWrapper')
                 .forEach(el => el.classList.add('expanded'));
             locationInput.blur();
-            returnLocationButton.classList.remove('hidden');
+            if (returnLocationWrapper.classList.contains('hidden')) {
+                returnLocationButton.classList.remove('hidden');
+            }
             formContainer.classList.remove('fixed-on-focus');
             submitBtn.style.display = 'block';
-
         };
 
         locationInput.addEventListener('focus', () => {
