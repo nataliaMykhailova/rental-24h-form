@@ -8,9 +8,6 @@ document.getElementById('promo-code-toggle').addEventListener('change', function
 });
 
 
-
-
-
 document.querySelectorAll('.input-wrapper').forEach(function (element) {
     element.addEventListener('focusin', function () {
         this.classList.add('focused');
@@ -33,7 +30,6 @@ document.querySelectorAll('.input-wrapper input').forEach(input => {
 });
 
 
-
 // Додаємо подію кліку на всі іконки очищення тексту
 document.querySelectorAll('.clear-icon').forEach(icon => {
     icon.addEventListener('click', function () {
@@ -44,16 +40,6 @@ document.querySelectorAll('.clear-icon').forEach(icon => {
         input.focus();
     });
 });
-
-
-
-
-
-
-
-
-
-
 
 
 // list location and autocomplit
@@ -165,7 +151,8 @@ document.addEventListener("DOMContentLoaded", async function () {
                     removeActiveClass(inp);
                 });
                 a.appendChild(returnAtPickupDiv);
-            }for (i = 0; i < arr.length; i++) {
+            }
+            for (i = 0; i < arr.length; i++) {
                 if (arr[i].display.substr(0, val.length).toUpperCase() === val.toUpperCase()) {
                     b = document.createElement('DIV');
                     const svgIcon = arr[i].isAirport ?
@@ -280,7 +267,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     const lat = position.coords.latitude;
                     const lon = position.coords.longitude;
                     console.log('User coordinates:', lat, lon);
-                    resolve({ lat, lon });
+                    resolve({lat, lon});
                 }, (error) => {
                     console.error('Geolocation error:', error);
                     resolve(null); // У разі помилки повертаємо null
@@ -292,7 +279,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     }
 
-    function findNearestLocationCoords (locations, userCoords) {
+    function findNearestLocationCoords(locations, userCoords) {
         const userLat = userCoords.lat;
         const userLng = userCoords.lon;
         let nearestLocation = null;
@@ -308,9 +295,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         return nearestLocation;
     }
-
-
-
 
 
     function selectCountry(country) {
@@ -383,11 +367,11 @@ document.addEventListener("DOMContentLoaded", async function () {
         const fontFamily = window.getComputedStyle(selectElement).fontFamily;
         context.font = `${fontSize} ${fontFamily}`;
         const width = context.measureText(optionText).width;
-        selectElement.style.width = `${width +10}px`;
+        selectElement.style.width = `${width + 10}px`;
     }
 
 
-    selectElement.addEventListener('change', function() {
+    selectElement.addEventListener('change', function () {
         adjustSelectWidth(this);
     });
 
@@ -540,8 +524,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     let currentPickerTime = '';
-
-
 
 
     const today = new Date();
@@ -707,7 +689,7 @@ document.addEventListener('DOMContentLoaded', function () {
             calendarContainer.style.display = 'none';
             if (window.innerWidth > 768) {
                 dropoffPicker.classList.remove('focused-clas');
-            }else {
+            } else {
                 dropoffPickerModal.classList.remove('focused-clas');
                 pickupPickerModal.classList.add('focused-clas');
             }
@@ -818,7 +800,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (currentPicker === 'dropoff') {
             dropoffPickerModal.classList.add('focused-clas');
             pickupPickerModal.classList.remove('focused-clas');
-        } else if (currentPicker === 'pickup'){
+        } else if (currentPicker === 'pickup') {
             pickupPickerModal.classList.add('focused-clas');
             dropoffPickerModal.classList.remove('focused-clas');
         }
@@ -844,7 +826,6 @@ document.addEventListener('DOMContentLoaded', function () {
         dropoffHourContainerModal.style.display = 'none';
         pickupHourContainerModal.style.display = 'none';
         headerData.querySelector('h3').textContent = 'Trip dates';
-
 
 
         updateModalCalendar(); // Виклик функції оновлення календаря
@@ -1033,9 +1014,9 @@ document.addEventListener('DOMContentLoaded', function () {
             hideModal();
         }
     }
+
     // Initial setup
     updateCalendar();
-
 
 
     pickupPicker.addEventListener('click', () => {
@@ -1060,15 +1041,18 @@ document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('click', hideCalendar);
     prevButton.addEventListener('click', showPreviousMonth);
     nextButton.addEventListener('click', showNextMonth);
-    pickupPickerModal.addEventListener('click', () => {currentPicker = 'pickup';showModal();});
-    dropoffPickerModal.addEventListener('click', () => {currentPicker = 'dropoff';showModal();});
+    pickupPickerModal.addEventListener('click', () => {
+        currentPicker = 'pickup';
+        showModal();
+    });
+    dropoffPickerModal.addEventListener('click', () => {
+        currentPicker = 'dropoff';
+        showModal();
+    });
     pickupHourContainer.addEventListener('click', showTimeModalPickup);
     dropoffHourContainer.addEventListener('click', showTimeModalDropoff);
     pickupHourContainerModal.addEventListener('click', showTimeModalPickup);
     dropoffHourContainerModal.addEventListener('click', showTimeModalDropoff);
-
-
-
 
 
     function toggleSelectVisibility(containerId, selectId) {
@@ -1210,9 +1194,26 @@ document.addEventListener('DOMContentLoaded', function () {
                 promoCodeToggle.checked = false;
             }
         });
-
-
-
     }
 });
+document.addEventListener('DOMContentLoaded', function () {
+    // Отримуємо всі елементи select на сторінці
+    const selectElements = document.querySelectorAll('select');
+
+    // Функція, яка прокручує до вибраного елемента при відкритті
+    function scrollToSelectedOption(event) {
+        const selectElement = event.target;
+        const selectedIndex = selectElement.selectedIndex;
+        const options = selectElement.options;
+
+        // Прокрутка до вибраного елемента
+        selectElement.scrollTop = options[selectedIndex].offsetTop;
+    }
+
+    // Додаємо обробник події для кожного елемента select
+    selectElements.forEach(function (selectElement) {
+        selectElement.addEventListener('focus', scrollToSelectedOption);
+    });
+});
+
 
