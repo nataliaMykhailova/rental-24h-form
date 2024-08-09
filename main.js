@@ -139,16 +139,21 @@ document.addEventListener("DOMContentLoaded", async function () {
                 const rentNearMeDiv = createCustomButton('Rent car near me', 'left', 'rent');
                 rentNearMeDiv.addEventListener('click', function (e) {
                     findNearestLocation(locations, inp);
+                    document.querySelectorAll('#loc-icon path').forEach(function(icon) {
+                        icon.style.fill = 'black';
+                    });
                     closeAllLists();
-                    removeActiveClass(inp);
                 });
                 a.appendChild(rentNearMeDiv);
             } else {
                 const returnAtPickupDiv = createCustomButton('Return at Pick-up', 'left', 'return');
                 returnAtPickupDiv.addEventListener('click', function (e) {
                     inp.value = locationInput.value;
+                    inp.closest('.input-wrapper').classList.remove('focused');
+                    document.querySelectorAll('#drop-of-icon path').forEach(function(icon) {
+                        icon.style.fill = 'black';
+                    });
                     closeAllLists();
-                    removeActiveClass(inp);
                 });
                 a.appendChild(returnAtPickupDiv);
             }
@@ -166,8 +171,18 @@ document.addEventListener("DOMContentLoaded", async function () {
                     b.innerHTML += `<input type="hidden" value="${arr[i].display}">`;
                     b.addEventListener('click', function (e) {
                         inp.value = this.getElementsByTagName('input')[0].value;
+                        if (inp.id === 'location') {
+                            document.querySelectorAll('#loc-icon path').forEach(function(icon) {
+                                icon.style.fill = 'black';
+                            });
+                        } else if (inp.id === 'returnLocation') {
+                            document.querySelectorAll('#drop-of-icon path').forEach(function(icon) {
+                                icon.style.fill = 'black';
+                            });
+                        }
                         closeAllLists();
-                        removeActiveClass(inp);
+
+
                     });
                     a.appendChild(b);
                 }
