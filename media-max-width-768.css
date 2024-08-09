@@ -180,8 +180,6 @@
         height: auto;
     }
 
-
-
     .svg-clock {
         display: block;
     }
@@ -202,7 +200,6 @@
     .slider-text {
         margin-top: 10px;
     }
-
     .calendar-body-container {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
@@ -231,16 +228,17 @@
     }
     #calendar-container-modal {
         width: 100%;
-        height: 100%;
+        height: calc(100vh - 272px);
         margin: 200px 0 72px 0;
-        padding: 16px ;
+        padding: 0 16px ;
         box-sizing: border-box;
-
+        overflow-y: scroll;
+        position: relative;
     }
 
     .calendar-header {
         flex-direction: column;
-        position: relative;
+        /*position: relative;*/
     }
 
     #next-button {
@@ -345,47 +343,28 @@
     #time-modal-pickup {
         margin: 275px 0 75px 0;
     }
-
-    .month-year {
-        text-align: center;
-        font-size: 16px;
-        font-weight: 900;
-        color: #000000;
-        margin-bottom: 16px;
-    }
-
     .time-date {
         display: flex;
         width: 100%;
         margin: 16px 0;
     }
-
-
-
     .data-picker-day-model:active{
         border: 2px solid #4A44F2;
     }
-
     .data-picker-day-model:active svg path{
         fill: #4a44f2;
     }
-
     h3 {
         font-size: 16px;
         font-style: normal;
         font-weight: 700;
         line-height: 16px;
     }
-
     #original-picker-section {
         display: flex;
         justify-content: space-between;
         flex-direction: column;
     }
-
-
-
-
     .autocomplete-items{
         box-shadow: none;
         border-bottom: none;
@@ -543,6 +522,20 @@
     .input-wrapper:active #loc-icon path{
         fill: none;
     }
+    .sticky-header {
+        position: sticky;
+        top: 0;
+        background-color: white;
+        z-index: 10;
+    }
 
-
+    .month-year {
+        text-align: center;
+        font-size: 16px;
+        font-weight: 900;
+        color: #000000;
+        z-index: 1000;
+        background-color: white;
+        height: 50px;
+    }
 }
