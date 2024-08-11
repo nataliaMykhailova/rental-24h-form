@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const locationInput = document.getElementById('location');
     const returnLocationInput = document.getElementById('returnLocation');
     const selectElement = document.getElementById('dynamic-width-select');
+    const ageSelect = document.getElementById('age-select');
 
 
     // Завантаження JSON-файлу
@@ -382,13 +383,17 @@ document.addEventListener("DOMContentLoaded", async function () {
         const fontFamily = window.getComputedStyle(selectElement).fontFamily;
         context.font = `${fontSize} ${fontFamily}`;
         const width = context.measureText(optionText).width;
-        selectElement.style.width = `${width + 10}px`;
+        selectElement.style.width = `${width }px`;
     }
 
 
     selectElement.addEventListener('change', function () {
         adjustSelectWidth(this);
     });
+
+    ageSelect.addEventListener('change', function () {
+        adjustSelectWidth(this);
+    })
 
 
     autocomplete(locationInput, locations, true);
