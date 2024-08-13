@@ -538,4 +538,9 @@
         background-color: white;
         height: 50px;
     }
+
+    input:focus, textarea:focus {
+        caret-color: black;
+        outline: none;
+    }
 }

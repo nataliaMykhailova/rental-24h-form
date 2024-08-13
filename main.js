@@ -7,6 +7,15 @@ document.getElementById('promo-code-toggle').addEventListener('change', function
     }
 });
 
+document.querySelectorAll('input, textarea').forEach(input => {
+    input.addEventListener('focus', function() {
+        if (this.value === '') {
+            this.value = ' ';
+            this.value = '';
+        }
+    });
+});
+
 
 document.querySelectorAll('.input-wrapper').forEach(function (element) {
     element.addEventListener('focusin', function () {
