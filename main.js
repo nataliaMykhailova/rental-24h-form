@@ -25,14 +25,6 @@ document.querySelectorAll('.input-wrapper').forEach(function (element) {
     });
 });
 
-document.querySelectorAll('.input-wrapper').forEach(function (element) {
-    element.addEventListener('focusin', function () {
-        this.classList.add('focused');
-    });
-    element.addEventListener('focusout', function () {
-        this.classList.remove('focused');
-    });
-});
 
 
 document.querySelectorAll('.input-wrapper input').forEach(input => {
