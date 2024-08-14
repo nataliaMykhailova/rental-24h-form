@@ -397,6 +397,7 @@ select.open {
 }
 
 
+
 .slider {
     position: absolute;
     cursor: pointer;
@@ -874,17 +875,10 @@ input:checked + .slider::after {
     border-radius: 5px;
 }
 
-input:focus, textarea:focus {
-    caret-color: black;
+input {
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0;
     outline: none;
-}
-
-input, textarea {
-    caret-color: black; /* Чорний курсор */
-}
-input:focus::before {
-    content: '|';
-    position: absolute;
-    color: black;
-    font-size: 16px;
+    caret-color: black;
 }
