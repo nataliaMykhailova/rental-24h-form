@@ -7,15 +7,23 @@ document.getElementById('promo-code-toggle').addEventListener('change', function
     }
 });
 
-document.querySelectorAll('input, textarea').forEach(input => {
-    input.addEventListener('focus', function() {
-        if (this.value === '') {
-            this.value = ' ';
-            this.value = '';
+document.querySelectorAll('.input-wrapper').forEach(function (element) {
+    element.addEventListener('focusin', function () {
+        this.classList.add('focused');
+        if (this.querySelector('#location')) {
+            document.querySelectorAll('#loc-icon path').forEach(function(icon) {
+                icon.style.fill = '#4A44F2'; // Синій колір
+            });
+        } else if (this.querySelector('#returnLocation')) {
+            document.querySelectorAll('#drop-of-icon path').forEach(function(icon) {
+                icon.style.fill = '#4A44F2'; // Синій колір
+            });
         }
     });
+    element.addEventListener('focusout', function () {
+        this.classList.remove('focused');
+    });
 });
-
 
 document.querySelectorAll('.input-wrapper').forEach(function (element) {
     element.addEventListener('focusin', function () {
@@ -45,7 +53,7 @@ document.querySelectorAll('.clear-icon').forEach(icon => {
         // Очищаємо значення відповідного інпуту
         const input = this.previousElementSibling;
         input.value = '';
-        input.classList.remove('filled');
+        input.classList.add('focused');
         input.focus();
     });
 });
