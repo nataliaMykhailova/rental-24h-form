@@ -1184,6 +1184,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const promoCodeToggle = document.getElementById('promo-code-toggle');
         const locationInput = document.getElementById('location');
         const submitBtn = document.querySelector('.submit-btn');
+        const inputWrapper = document.querySelectorAll('.input-wrapper');
 
 // Функція для розширення форми
         const expandForm = () => {
@@ -1233,6 +1234,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 promoCodeField.classList.remove('active');
                 promoCodeToggle.checked = false;
             }
+
+
+
         });
     }
 });
