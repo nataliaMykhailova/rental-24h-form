@@ -12,9 +12,21 @@ document.getElementById('promo-code-toggle').addEventListener('change', function
 document.querySelectorAll('.input-wrapper').forEach(function (element) {
     element.addEventListener('focusin', function () {
         this.classList.add('focused');
+        if (this.querySelector('#location')) {
+            document.querySelectorAll('#loc-icon path').forEach(function(icon) {
+                icon.style.fill = '#4A44F2'; // Синій колір
+            });
+        } else if (this.querySelector('#returnLocation')) {
+            document.querySelectorAll('#drop-of-icon path').forEach(function(icon) {
+                icon.style.fill = '#4A44F2'; // Синій колір
+            });
+        }
     });
     element.addEventListener('focusout', function () {
         this.classList.remove('focused');
+        document.querySelectorAll('#loc-icon path, #drop-of-icon path').forEach(function(icon) {
+            icon.style.fill = 'black'; // Чорний колір
+        });
     });
 });
 
@@ -1215,12 +1227,14 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         locationInput.addEventListener('focus', () => {
-            if (!formContainer.classList.contains('expanded')) {
-                formContainer.classList.add('expanded');
-                submitBtn.style.display = 'none';
-                formContainer.classList.add('fixed-on-focus');
-                removeIcon.style.display = 'inline';
-            }
+            setTimeout(() => {
+                if (!formContainer.classList.contains('expanded')) {
+                    formContainer.classList.add('expanded');
+                    submitBtn.style.display = 'none';
+                    formContainer.classList.add('fixed-on-focus');
+                    removeIcon.style.display = 'inline';
+                }
+            }, 300); // Затримка в 300 мс (можна змінити значення на потрібне вам)
         });
 
         document.addEventListener('click', function (e) {
