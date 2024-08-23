@@ -824,7 +824,7 @@ input:checked + .slider::after {
     font-weight: 400;
     line-height: 20px;
     width: 100%;
-    height: 65px;
+    height: auto;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -880,4 +880,17 @@ input {
     border-radius: 0;
     outline: none;
     caret-color: black;
+}
+
+.autocomplete {
+    width: 100%;
+    background: #FFFFFF;
+    padding: 10px;
+}
+
+.calcCar {
+    font-size: 10px;
+    color: #8A9197;
+    padding: 0;
+    margin: 0;
 }
