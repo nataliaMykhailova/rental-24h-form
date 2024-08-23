@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         <div class="autocomplete-svg">${svgIcon}</div>
         <div class="autocomplete">
             <div class="autocomplete-next">${label}</div>
-            <p class="calcCar">Text</p>
+            <p class="calcCar">Supporting text</p>
         </div>`;
         buttonDiv.style.display = 'flex';
         buttonDiv.style.alignItems = 'center';
@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     b.innerHTML = `<div class="autocomplete-svg">${svgIcon}</div>
                                    <div class="autocomplete">
                                      <div class="autocomplete-next" ">${arr[i].display}</div>
-                                        <p class="calcCar">Text</p>
+                                        <p class="calcCar">Supporting text</p>
                                    </div>`;
                     b.innerHTML += `<input type="hidden" value="${arr[i].display}">`;
                     b.addEventListener('click', function (e) {
